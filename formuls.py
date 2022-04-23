@@ -93,5 +93,16 @@ def Craft(Skill, Bonus):
 	r"""Формула расчёта значений успеха и провала при крафте предмета"""
 	success = int((constants.Skills["Изобретательность"] + Skill * Bonus) / 10)
 	print("Результат:", Chance(success))
+
 def Block(Skill, Bonus):
-	success = int ((constants.Skills["Сила"] + Skill * Bonus) / 10)
+	pass
+def Sleep():
+	pass
+def Use():
+	pass
+def Work():
+	pass
+def Rest():
+	pass
+def Dead():
+	pass
