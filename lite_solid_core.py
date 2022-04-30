@@ -3,57 +3,47 @@ import os
 import sys
 import formuls
 import constants
+import player_info_datas
 import os.path
 os.chdir(sys.path[0])
 
-PlayerInfo = {"Name": "Clyoucker", "Race": "Человек", "Class": "Никто", "Prof": "Паладин", "Spec": "Авангард", "Religion": "Сихритизм"}
-PlayerSkills = {"Skills": ["Мудрость", "Мастерство", "Сила", "Телосложение", "Адаптивность", "Воля", "Разведка", "Внимательность", "Ресурсы"]}
-PlayerStats = {PlayerInfo["Race"]: constants.Races[PlayerInfo["Race"]],
-			PlayerInfo["Class"]: constants.Class[PlayerInfo["Class"]],
-			PlayerInfo["Prof"]: constants.Profs[PlayerInfo["Prof"]],
-			PlayerInfo["Spec"]: constants.Specs[PlayerInfo["Spec"]]}
-PlayerChar = {PlayerSkills["Skills"][0]: 4,
-			PlayerSkills["Skills"][1]: 3,
-			PlayerSkills["Skills"][2]: 3,
-			PlayerSkills["Skills"][3]: 2,
-			PlayerSkills["Skills"][4]: 2,
-			PlayerSkills["Skills"][5]: 2,
-			PlayerSkills["Skills"][6]: 1,
-			PlayerSkills["Skills"][7]: 1,
-			PlayerSkills["Skills"][8]: 1}
-
 startTime = time.time()
-clears = lambda:os.system("cls")
+clears = lambda: os.system("cls")
 
-
-def main():
+def correcter(text):
+	text = text.lower().title().strip()
 	while True:
-		print("Launched Request:Функция обработки основных запросов")
-		print("[/Help][/Create][/Load][/Save][/Action][/Ver][/Esc]")
-		def Help_checker(check):
-			check = check.lower().title()
-			while True:
-				if "  " in check:
-					check = check.replace("  ", " ")
-				else:
-					break
+		if "  " in text:
+			text = text.replace("  ", " ")
+		else:
+			break
+	if text.startswith("/"):
+		return text
+	else:
+		text = "/" + text
+		return text
+def help_checker(check):
 			if check == "/Back":
 				return check
 			elif check.isspace() or len(check) < 6:
 				return "Error"
 			else:
-				check = check[6:].rstrip()
+				check = check[6:]
 				if check.isalpha():
 					print(check)
 					return check
 				else:
 					return "Error"
+
+player = None #Временное решение. Нужна для того, чтобы игрок не мог сразу использовать действия, пока не создаст персонажа или не загрузит.
+
+def main():
+	while True:
 		def Helper():
 			while True:
-				print("Helper:Помошник по командам")
-				print("[/Info Commands]")
-				user = input("Поиск: ")
-				user = Help_checker(user)
+				print("Launched Helper:Помошник по командам""\n""[/Info Commands]")
+				user = correcter(input("Поиск: "))
+				user = help_checker(user)
 				if os.path.exists("Assets/Commands/" + user + ".txt"):
 					with open("Assets/Commands/" + user + ".txt", "r", encoding="utf-8") as file:
 						clears()
@@ -84,70 +74,90 @@ def main():
 					clears()
 					print("Error!""\n""Помошник не нашёл информацию об этом элементе или его не существует!")
 		def Action():
+			global player
 			while True:
 				print("Launched Action:Функция обработки действий персонажа")
-				act = input("Действие: ").lower().title().strip()
-				if act == "/Learn":
-					if "Мудрость" in PlayerSkills["Skills"]:
-						print(formuls.Learn(PlayerInfo["Class"], PlayerChar["Мудрость"], constants.SkillsBonus["Мудрость"]))
+				action = correcter(input("Действие: "))
+				try:
+					if action == "/Learn":
+						if "Мудрость" in player.skills.Skills:
+							print(formuls.Learn(player.clas, player.skills.Skills["Мудрость"], constants.SkillsBonus["Мудрость"]))
+						else:
+							print(formuls.Learn(player.clas, 0, 0))
+					elif action == "/Sell":
+						if "Торговля" in player.skills.Skills:
+							print(formuls.Sell(3600, 1200, player.skills.Skills["Торговля"], constants.SkillsBonus["Торговля"]["Продажа"]))
+						else:
+							print(formuls.Sell(3600, 1200, 0, 0))
+					elif action == "/Buy":
+						if "Торговля" in player.skills.Skills:
+							print(formuls.Buy(3600, 1200, player.skills.Skills["Торговля"], constants.SkillsBonus["Торговля"]["Покупка"]))
+						else:
+							print(formuls.Buy(3600, 1200, 0, 0))
+					elif action == "/Proof":
+						if "Социальность" in player.skills.Skills:
+							print(formuls.Proof(player.skills.Skills["Социальность"], constants.SkillsBonus["Социальность"]))
+						else:
+							print(formuls.Proof(0, 0))
+					elif action == "/Check":
+						if "Внимательность" in player.skills.Skills:
+							print(formuls.Check(player.skills.Skills["Внимательность"], constants.SkillsBonus["Внимательность"]))
+						else:
+							print(formuls.Check(0, 0))
+					elif action == "/Hack":
+						if "Взлом" in player.skills.Skills:
+							print(formuls.Hack(player.skills.Skills["Взлом"], constants.SkillsBonus["Взлом"]))
+						else:
+							print(formuls.Hack(0, 0))
+					elif action == "/Steal":
+						if "Воровство" in player.skills.Skills:
+							print(formuls.Steal(player.skills.Skills["Воровство"], constants.SkillsBonus["Воровство"]))
+						else:
+							print(formuls.Steal(0, 0))
+					elif action == "/Dodge":
+						if "Ловкость" in player.skills.Skills:
+							print(formuls.Dodge(player.skills.Skills["Ловкость"], constants.SkillsBonus["Ловкость"]))
+						else:
+							print(formuls.Dodge(0, 0))
+					elif action == "/Craft":
+						if "Изобритательность" in player.skills.Skills:
+							print(formuls.Craft(player.skills.Skills["Изобретательность"], constants.SkillsBonus["Изобретательность"]))
+						else:
+							print(formuls.Craft(0, 0))
+					elif action == "/Block":
+						if "Сила" in player.skills.Skills:
+							print(formuls.Craft(player.skills.Skills["Сила"], constants.SkillsBonus["Сила"]))
+						else:
+							print(formuls.Craft(0, 0))
+					elif action == "/Add Item":
+						player.inventory.add_item(input("Название предмета: "), round(float(input("Кол-во: "))))
+					elif action == "/Set Item":
+						player.inventory.set_item(input("Название предмета: "), round(float(input("Кол-во: "))))
+					elif action == "/Del Item":
+						player.inventory.remove_item(input("Название предмета: "))
+					elif action == "/Inventory":
+						player.inventory.data_inventory()
+					elif action == "/Add Equip":
+						player.equipment.add_eqip(input("Название предмета: "), round(float(input("Кол-во: "))))
+					elif action == "/Dell Equip":
+						player.equipment.remove_eqip(input("Название предмета: "))
+					elif action == "/Equips":
+						player.equipment.data_eqip()
+					elif action == "/Player Info":
+						player.data_player()
+					elif action == "/Back":
+						break
 					else:
-						print(formuls.Learn(PlayerInfo["Class"], 0, 0))
-				elif act == "/Sell":
-					if "Торговля" in PlayerSkills["Skills"]:
-						print(formuls.Sell(3600, 1200, PlayerChar["Торговля"], constants.SkillsBonus["Торговля"]["Продажа"]))
-					else:
-						print(formuls.Sell(3600, 1200, 0, 0))
-				elif act == "/Buy":
-					if "Торговля" in PlayerSkills["Skills"]:
-						print(
-							formuls.Buy(3600, 1200, PlayerChar["Торговля"], constants.SkillsBonus["Торговля"]["Покупка"]))
-					else:
-						print(formuls.Buy(3600, 1200, 0, 0))
-				elif act == "/Proof":
-					if "Социальность" in PlayerSkills["Skills"]:
-						print(formuls.Proof(PlayerChar["Социальность"], constants.SkillsBonus["Социальность"]))
-					else:
-						print(formuls.Proof(0, 0))
-				elif act == "/Check":
-					if "Внимательность" in PlayerSkills["Skills"]:
-						print(formuls.Check(PlayerChar["Внимательность"], constants.SkillsBonus["Внимательность"]))
-					else:
-						print(formuls.Check(0, 0))
-				elif act == "/Hack":
-					if "Взлом" in PlayerSkills["Skills"]:
-						print(formuls.Hack(PlayerChar["Взлом"], constants.SkillsBonus["Взлом"]))
-					else:
-						print(formuls.Hack(0, 0))
-				elif act == "/Steal":
-					if "Воровство" in PlayerSkills["Skills"]:
-						print(formuls.Steal(PlayerChar["Воровство"], constants.SkillsBonus["Воровство"]))
-					else:
-						print(formuls.Steal(0, 0))
-				elif act == "/Dodge":
-					if "Ловкость" in PlayerSkills["Skills"]:
-						print(formuls.Dodge(PlayerChar["Ловкость"], constants.SkillsBonus["Ловкость"]))
-					else:
-						print(formuls.Dodge(0, 0))
-				elif act == "/Craft":
-					if "Изобритательность" in PlayerSkills["Skills"]:
-						print(
-							formuls.Craft(PlayerChar["Изобритательность"], constants.SkillsBonus["Изобритательность"]))
-					else:
-						print(formuls.Craft(0, 0))
-				elif act == "/Block":
-					if "Сила" in PlayerSkills["Skills"]:
-						print(formuls.Craft(PlayerChar["Сила"], constants.SkillsBonus["Сила"]))
-					else:
-						print(formuls.Craft(0, 0))
-				elif act == "/Back":
+						print(f"Error: Action не способен обработать такой запрос: [{action}]")
+				except AttributeError:
+					print("Error")
 					break
-				else:
-					print("Error: Action не способен обработать такой запрос [" + act + "]")
 		def Requests(searh):
-			r"""Обрабатывает основные команды, такие как /Create,/Load,/Space,/Esc,/Help,/Ver"""
+			global player
+			r"""Обрабатывает основные команды, такие как /Create,/Load,/Save,/Esc,/Help,/Ver"""
 			clears()
 			try:
-				searh = searh.lower().title().strip()
+				searh = correcter(searh)
 			except AttributeError:
 				print("Error: Вы вмешались в работоспособность кода!")
 				return "Break"
@@ -155,23 +165,35 @@ def main():
 				clears()
 				Helper()
 			elif searh == "/Create":
-				clears()
-				print("Эта функция не работает")
+				print ("Эта функция реализована на половину")
+				player = player_info_datas.Player("User-Test", "Человек", "Воин", "Паладин", "Авангард")
+				while True:
+					x = player.skills.set_skills()
+					if x == True:
+						break
 			elif searh == "/Load":
 				clears()
-				print("Эта функция не работает")
+				print (f"Эта функция не работает: [{searh}]")
 			elif searh == "/Save":
 				clears()
-				print("Эта функция не работает")
+				print(f"Эта функция не работает: [{searh}]")
 			elif searh == "/Action":
-				clears()
-				Action()
+				if player == None:
+					print("Вы не можете воспользоваться действиями, пока не создадите персонажа или не загрузите его!")
+				else:
+					clears()
+					Action()
 			elif searh == "/Ver":
-				print("LSC-Public-Version-3.0-Beta")
+				clears()
+				print("LSC-Public-Version-3.5-Beta")
 			elif searh == "/Esc":
+				clears()
 				return "Break"
 			else:
-				print("Error: Requests не способен обработать такой запрос[" + searh + "]")
+				clears()
+				print(f"Error: Requests не способен обработать такой запрос: [{searh}]")
+		print("Launched Request:Функция обработки основных запросов")
+		print("[/Help][/Create][/Load][/Save][/Action][/Ver][/Esc]")
 		try:
 			res = Requests(input("Запрос: "))
 			if res == "Break":
@@ -189,4 +211,4 @@ if __name__ == "__main__":
 
 endTime = time.time()
 totalTime = endTime - startTime
-print("Время, затраченное на выполнение данного кода = ", totalTime)
+print(f"Время, затраченное на выполнение данного кода = [{totalTime}]")
