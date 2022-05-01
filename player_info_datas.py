@@ -161,7 +161,7 @@ class Skills():
         if len(lenlstskills) == self.MaxSkills:
             for i in lstskills:
                 if i in constants.Skills.keys():
-                    count+=1
+                    count +=1
                     if count == 9:
                         print("Все навыки соответствуют константному списку навыков!")
                         self.Skills = {
@@ -186,82 +186,89 @@ class Skills():
 class Inventory():
 
     def __init__(self):
-        self.AllInventoryWeight = 0
-        self.MaxInventoryWeight = 14
-        self.Inventory = {}
+        self.__AllInventoryWeightSize = 0
+        self.MaxInventoryWeightSize = 14
+        self.__Inventory = {}
 
     def add_item(self, item_name, item_amount):
-        self.ItemName = item_name
-        self.ItemAmount = item_amount
-        try:
-            self.AllInventoryWeight = self.AllInventoryWeight + item_amount * constants.ItemsWeights[item_name]
-            if self.AllInventoryWeight <= self.MaxInventoryWeight:
-                self.Inventory[item_name] = {"Количество": item_amount, "Вес": item_amount * constants.ItemsWeights[item_name]}
-                print(f"Предмет добавлен: [{item_name}]")
-            else:
-                print("В вашем инвентаре мало места!")
-                self.AllInventoryWeight = self.AllInventoryWeight - item_amount * constants.ItemsWeights[item_name]
-        except KeyError:
-            print ("Warning: Попытка добавить несуществующую вещь!")
-
-    def set_item(self, item_name, item_amount):
-        self.ItemName = item_name
-        self.ItemAmount = item_amount
-        try:
-            self.AllInventoryWeight = self.AllInventoryWeight + item_amount * constants.ItemsWeights[item_name]
-            if self.AllInventoryWeight <= self.MaxInventoryWeight:
-                self.Inventory[item_name] = {"Количество": item_amount+self.Inventory[item_name]["Количество"], "Вес": (item_amount+self.Inventory[item_name]["Количество"]) * constants.ItemsWeights[item_name]}
-                print(f"Предмет обновлён: [{item_name}]")
-            else:
-                print("В вашем инвенторе мало места!")
-                self.AllInventoryWeight = self.AllInventoryWeight - item_amount * constants.ItemsWeights[item_name]
-        except KeyError:
-            print("Warning: Попытка добавить несуществующую вещь!")
+        if item_name in constants.ItemsWeights.keys():
+            try:
+                Size = self.__AllInventoryWeightSize + item_amount * constants.ItemsWeights[item_name]
+                if Size <= self.MaxInventoryWeightSize:
+                    self.__Inventory[item_name] = {"Количество": item_amount+self.__Inventory[item_name]["Количество"], "Вес": (item_amount+self.__Inventory[item_name]["Количество"]) * constants.ItemsWeights[item_name]}
+                    self.__AllInventoryWeightSize = Size
+                    if self.__Inventory[item_name]["Количество"] <= 0:
+                        del self.__Inventory[item_name]
+                        print(f"Предмет удалён: [{item_name}]")
+                    else:
+                        print(f"Предмет обновлён: [{item_name}]")
+                else:
+                    print("В вашем инвентаре мало места!""\n"f"Вам не хватает: [{Size-self.MaxInventoryWeightSize}]кг")
+            except KeyError:
+                Size = self.__AllInventoryWeightSize + item_amount * constants.ItemsWeights[item_name]
+                if Size <= self.MaxInventoryWeightSize:
+                    self.__Inventory[item_name] = {"Количество": item_amount, "Вес": item_amount * constants.ItemsWeights[item_name]}
+                    self.__AllInventoryWeightSize = Size
+                    print(f"Предмет добавлен: [{item_name}]")
+                else:
+                    print("В вашем инвентаре мало места!""\n"f"Вам не хватает: [{Size-self.MaxInventoryWeightSize}кг]")
+        else:
+            print(f"Такого предмета не существует в константах: [{item_name}]")
 
     def remove_item(self, item_name):
-        self.ItemName = item_name
-        if item_name in self.Inventory.keys():
-            self.AllInventoryWeight = self.AllInventoryWeight - self.Inventory[item_name]["Вес"]
-            del self.Inventory[item_name]
-            print (f"Предмет удалён: [{item_name}]")
+        if item_name in self.__Inventory.keys():
+            self.__AllInventoryWeightSize -= self.__Inventory[item_name]["Вес"]
+            del self.__Inventory[item_name]
+            print(f"Предмет удалён: [{item_name}]")
         else:
-            print("Warning: Вы пытаетесь удалить предмет, которого и так нету!")
+            print("Warning: Вы пытаетесь удалить предмет, которого нету!")
+        return self.__Inventory
 
-    def data_inventory(self):
-        print(self.Inventory)
+    def get_inventory(self):
+        print(self.__Inventory)
 
 class Equipment():
 
     def __init__(self):
-        self.AllIEqipWeight = 0
-        self.MaxEqipWeight = 12
-        self.Eqip = {}
+        self.__AllIEqipWeightSize = 0
+        self.MaxEqipWeightSize = 12
+        self.__Eqip = {}
 
-    def add_eqip(self, eqip_name, eqip_amount):
-        self.EqipName = eqip_name
-        self.EqipAmount = eqip_amount
-        try:
-            self.AllIEqipWeight = self.AllIEqipWeight + eqip_amount * constants.ItemsWeights[eqip_name]
-            if self.AllIEqipWeight <= self.MaxEqipWeight:
-                self.Eqip[eqip_name] = {"Количество": eqip_amount, "Вес": eqip_amount * constants.ItemsWeights[eqip_name]}
-                print (f"Предмет добавлен: [{eqip_name}]")
-            else:
-                print("В вашем снаряжении мало места!")
-                self.AllIEqipWeight = self.AllIEqipWeight - eqip_amount * constants.ItemsWeights[eqip_name]
-        except KeyError:
-            print("Warning: Попытка надеть несуществующую вещь!")
-
-    def remove_eqip(self, eqip_name):
-        self.EqipName = eqip_name
-        if eqip_name in self.Eqip.keys():
-            self.AllIEqipWeight = self.AllIEqipWeight - self.Eqip[eqip_name]["Вес"]
-            del self.Eqip[eqip_name]
-            print(f"Предмет удалён: [{eqip_name}]")
+    def add_item(self, item_name, item_amount):
+        if item_name in constants.ItemsWeights.keys():
+            try:
+                Size = self.__AllIEqipWeightSize + item_amount * constants.ItemsWeights[item_name]
+                if Size <= self.MaxEqipWeightSize:
+                    self.__Eqip[item_name] = {"Количество": item_amount+self.__Eqip[item_name]["Количество"], "Вес": (item_amount+self.__Eqip[item_name]["Количество"]) * constants.ItemsWeights[item_name]}
+                    self.__AllIEqipWeightSize = Size
+                    if self.__Eqip[item_name]["Количество"] <= 0:
+                        del self.__Eqip[item_name]
+                        print(f"Предмет удалён: [{item_name}]")
+                    else:
+                        print(f"Предмет обновлён: [{item_name}]")
+                else:
+                    print("В вашем инвентаре мало места!""\n"f"Вам не хватает: [{Size-self.MaxEqipWeightSize}]кг")
+            except KeyError:
+                Size = self.__AllIEqipWeightSize + item_amount * constants.ItemsWeights[item_name]
+                if Size <= self.MaxEqipWeightSize:
+                    self.__Eqip[item_name] = {"Количество": item_amount, "Вес": item_amount * constants.ItemsWeights[item_name]}
+                    self.__AllIEqipWeightSize = Size
+                    print(f"Предмет добавлен: [{item_name}]")
+                else:
+                    print("В вашем инвентаре мало места!""\n"f"Вам не хватает: [{Size-self.MaxEqipWeightSize}кг]")
         else:
-            print("Warning: Вы пытаетесь снять предмет, которого на вас нету!")
+            print(f"Такого предмета не существует в константах: [{item_name}]")
 
-    def data_eqip(self):
-        print(self.Eqip)
+    def remove_item(self, item_name):
+        if item_name in self.__Eqip.keys():
+            self.__AllIEqipWeightSize -= self.__Eqip[item_name]["Вес"]
+            del self.__Eqip[item_name]
+            print(f"Предмет удалён: [{item_name}]")
+        else:
+            print("Warning: Вы пытаетесь удалить предмет, которого нету!")
+
+    def get_eqip(self):
+        print(self.__Eqip)
 
 class Player(Data):
     def __init__(self, name, race, clas, prof, spec):
@@ -273,13 +280,10 @@ class Player(Data):
         self.inventory = Inventory()
         self.equipment = Equipment()
 
-    def data_player(self):
+    def get_player(self):
         print(self.__dict__)
-#player2 = Player("User-Test", "Человек", "Воин", "Паладин", "Авангард")
-#player2.skills.set_skills()
-#player2.skills.get_skills()
 
-
+player2 = Player("User-Test", "Человек", "Воин", "Паладин", "Авангард")
 
 
 
