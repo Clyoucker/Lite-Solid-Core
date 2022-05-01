@@ -1,5 +1,6 @@
 """Модули, помогающие в расчётах"""
 from random import *
+import os.path
 import constants
 """Формулы, облегчающие повторения в расчётах действий"""
 def Chance(Success):
@@ -107,3 +108,5 @@ def Rest():
 	pass
 def Dead():
 	print("Эм....Я не могу позволить вам умереть просто так :)")
+
+print(os.path.getsize("formuls.py"))
