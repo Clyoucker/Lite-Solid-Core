@@ -35,7 +35,7 @@ def help_checker(check):
 				else:
 					return "Error"
 
-player = None #Временное решение. Нужна для того, чтобы игрок не мог сразу использовать действия, пока не создаст персонажа или не загрузит.
+#player = None Временное решение. Нужна для того, чтобы игрок не мог сразу использовать действия, пока не создаст персонажа или не загрузит.
 
 def main():
 	while True:
@@ -131,20 +131,18 @@ def main():
 							print(formuls.Craft(0, 0))
 					elif action == "/Add Item":
 						player.inventory.add_item(input("Название предмета: "), round(float(input("Кол-во: "))))
-					elif action == "/Set Item":
-						player.inventory.set_item(input("Название предмета: "), round(float(input("Кол-во: "))))
 					elif action == "/Del Item":
 						player.inventory.remove_item(input("Название предмета: "))
 					elif action == "/Inventory":
-						player.inventory.data_inventory()
+						player.inventory.get_inventory()
 					elif action == "/Add Equip":
-						player.equipment.add_eqip(input("Название предмета: "), round(float(input("Кол-во: "))))
+						player.equipment.add_item(input("Название предмета: "), round(float(input("Кол-во: "))))
 					elif action == "/Dell Equip":
-						player.equipment.remove_eqip(input("Название предмета: "))
+						player.equipment.remove_item(input("Название предмета: "))
 					elif action == "/Equips":
-						player.equipment.data_eqip()
+						player.equipment.get_eqip()
 					elif action == "/Player Info":
-						player.data_player()
+						player.get_player()
 					elif action == "/Back":
 						break
 					else:
@@ -165,7 +163,7 @@ def main():
 				clears()
 				Helper()
 			elif searh == "/Create":
-				print ("Эта функция реализована на половину")
+				print("Эта функция реализована на половину")
 				player = player_info_datas.Player("User-Test", "Человек", "Воин", "Паладин", "Авангард")
 				while True:
 					x = player.skills.set_skills()
@@ -185,7 +183,7 @@ def main():
 					Action()
 			elif searh == "/Ver":
 				clears()
-				print("LSC-Public-Version-3.5-Beta")
+				print("LSC-Public-Version-3.5.2-Beta")
 			elif searh == "/Esc":
 				clears()
 				return "Break"
