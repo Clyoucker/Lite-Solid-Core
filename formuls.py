@@ -1,7 +1,7 @@
 """Модули, помогающие в расчётах"""
 from random import *
-import os.path
 import constants
+import math
 """Формулы, облегчающие повторения в расчётах действий"""
 def Chance(Success):
 	r"""Формула, которая расчитывает успех и провал"""
@@ -9,8 +9,8 @@ def Chance(Success):
 		return "Успеx"
 	else:
 		return "Провал"
-def Money_Conventer(Amount, Name_Money):
-	r"""Формула расчёта денег при продажи предмета"""
+"""
+def Money_Conventer(Name_Money, Amount):
 	if Name_Money == "Олововянные" or Name_Money == "Олово":
 		return Amount * 5
 	elif Name_Money == "Железные" or Name_Money == "Железо":
@@ -33,80 +33,70 @@ def Money_Conventer(Amount, Name_Money):
 		return Amount * 500
 	elif Name_Money == "Мифриловые" or Name_Money == "Мифрил":
 		return Amount * 2500
+"""
 """Формулы расчётов действия"""
-def Sell(Cost, Money, Skill, Bonus):
+def Sell(Cost, Money, Amount, Skill, Bonus):
 	r"""Формула расчёта денег при продажи предмета"""
 	if type(Cost) == int:
 		if 0 <= Cost <= 10000:
-			Buy_Price = Cost + (Cost * ((Skill * Bonus) / 100))
+			Buy_Price = Cost + (Cost * ((Skill * Bonus) / 100))*Amount
 			Money = Money + Buy_Price
 			return round(Money)
 		else:
-			print("Вы ввели слишком высокую цену или вовсе отрицательную!""\n""Введите другое значение!")
+			print("Вы ввели слишком высокую цену или вовсе отрицательную! Введите другое значение!")
+			return "Error"
 	else:
-		print("Вы где-то ввели строкове значение!""\n""Введите только числовые значения!")
-def Buy(Cost, Money, Skill, Bonus):
+		print("Вы где-то ввели строкове значение! Введите только числовые значения!")
+		return "Error"
+
+def Buy(Cost, Money, Amount, Skill, Bonus):
 	r"""Формула расчёта денег при покупки предмета"""
 	if type(Cost) == int:
 		if Cost >= 0:
-			Cost = Cost-(Cost*((Skill * Bonus) / 100))
-			if Money >= Cost:
-				Money = Money - Cost
+			Cost = (Cost-(Cost*((Skill * Bonus) / 100)))*Amount
+			Money = Money - Cost
+			if Money >= 0:
 				return round(Money)
 			else:
-				print("У вас недостаточно денег!" "\n" "На ваших руках: ", Money, "\n""Вам не хватает: ", Cost-Money)
+				return round(Money)
 		else:
-			print("Вы ввели отрицательное значение или вовсе строковые данные" "\n" "Введите правильное значение!")
+			print("Вы ввели отрицательное значение! Введите правильное значение!")
+			return "Error"
 	else:
-		print("Вы где-то ввели строкове значение!" "\n" "Введите только числовые значения!")
-def Learn(Class, Skill, Bonus):
+		print("Вы где-то ввели строкове значение! Введите только числовые значения!")
+		return "Error"
+
+def Сommon_Success(BSB, Skill, Bonus):	#BSB - Base Skill Bonus
+	r"""Формула расчёта обычных действий с повторяющейся формулой расчёта"""
+	success = Chance(math.ceil((BSB + Skill * Bonus) / 10))
+	return success
+
+def Learn(BSB, Class, Skill, Bonus):
 	r"""Формула расчёта значений успеха и провала при изучении"""
 	if Class == "Маг":
-		success = int((constants.Skills["Мудрость"] + constants.ClassBonus["Маг"]["Мудрость"] + Skill * Bonus)/10)
-		print("Результат:", Chance(success))
+		success = Chance(math.ceil((BSB + constants.ClassBonus["Маг"]["Мудрость"] + Skill * Bonus)/10))
 	elif Class == "Никто":
-		success = int((constants.Skills["Мудрость"] + constants.ClassBonus["Никто"]["Мудрость"] + Skill * Bonus)/10)
-		print("Результат:", Chance(success))
+		success = Chance(math.ceil((BSB + constants.ClassBonus["Никто"]["Мудрость"] + Skill * Bonus)/10))
 	else:
-		success = int((constants.Skills["Мудрость"] + Skill * Bonus)/10)
-		print("Результат:", Chance(success))
-def Proof(Skill, Bonus):
-	r"""Формула расчёта значений успеха и провала при убеждении"""
-	success = int((constants.Skills["Социальность"] + Skill * Bonus) / 10)
-	print("Результат:", Chance(success))
-def Check(Skill, Bonus):
-	r"""Формула расчёта значений успеха и провала при проверке"""
-	success = int((constants.Skills["Внимательность"] + Skill * Bonus) / 10)
-	print("Результат:", Chance(success))
-def Hack(Skill, Bonus):
-	r"""Формула расчёта значений успеха и провала при взломе"""
-	success = int((constants.Skills["Взлом"] + Skill * Bonus) / 10)
-	print("Результат:", Chance(success))
-def Steal(Skill, Bonus):
-	r"""Формула расчёта значений успеха и провала при воровстве"""
-	success = int((constants.Skills["Воровство"] + Skill * Bonus) / 10)
-	print("Результат:", Chance(success))
-def Dodge(Skill, Bonus):
-	r"""Формула расчёта значений успеха и провала при увороте"""
-	success = int((constants.Skills["Ловкость"] + Skill * Bonus) / 10)
-	print("Результат:", Chance(success))
-def Craft(Skill, Bonus):
-	r"""Формула расчёта значений успеха и провала при крафте предмета"""
-	success = int((constants.Skills["Изобретательность"] + Skill * Bonus) / 10)
-	print("Результат:", Chance(success))
-def Block(Skill, Bonus):
-	r"""Формула расчёта значений успеха и провала при крафте предмета"""
-	success = int((constants.Skills["Сила"] + Skill * Bonus) / 10)
-	print("Результат:", Chance(success))
-def Sleep():
-	pass
-def Use():
-	pass
-def Work():
-	pass
-def Rest():
-	pass
-def Dead():
-	print("Эм....Я не могу позволить вам умереть просто так :)")
+		success = Chance(math.ceil((BSB + Skill * Bonus)/10))
+	return success
 
-print(os.path.getsize("formuls.py"))
+def Sleap(Hp, Mp, Sm):
+	res = randint(1,11)
+	if 1 <= res <= 4:
+		Hp = Hp + Hp * 0.5
+		Mp = Mp + Mp * 0.25
+		Sm = Sm + Sm * 1
+		print("В целом, вы неплохо поспали, но комары вам сильно мешали")
+	elif 5 <= res <= 8:
+		Hp = Hp + Hp * 1
+		Mp = Mp + Mp * 0.5
+		Sm = Sm + Sm * 2
+		print ("Бессоница беспощадна, даже к вам.")
+	else:
+		Hp = Hp + Hp * 2
+		Mp = Mp + Mp * 1
+		Sm = Sm + Sm * 2.5
+		print ("Ваш сон был как у младенца. Вы замечательно поспали и чувствуете прилив сил")
+	return Hp, Mp, Sm
+
