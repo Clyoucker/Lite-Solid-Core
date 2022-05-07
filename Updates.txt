@@ -15,7 +15,7 @@ lite_solid_core.py больше не использует модуль formuls
 Class Abilities - содержит список способностей персонажа.
 Метод sell, buy, learn, block, craft, dodge, steal, hack, check, proof
 class Storage - выполняет методы классов (Inventory, Equipment)
-Новые предметы - 59
+Новые предметы - 256
 Функции корректировки теперь являются самостоятельным модулем.
 
 Удалено:
