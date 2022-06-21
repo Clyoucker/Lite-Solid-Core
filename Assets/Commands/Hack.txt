@@ -1,4 +1,0 @@
-Формула расчёта значений успеха и провала при взломе
-
-success = int((constants.Skills["Взлом"] + Skill * Bonus) / 10)
-print(Chance(success))

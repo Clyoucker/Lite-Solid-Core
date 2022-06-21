@@ -1,4 +1,0 @@
-Формула расчёта значений успеха и провала при увороте
-
-success = int((constants.Skills["Ловкость"] + Skill * Bonus) / 10)
-print(Chance(success))

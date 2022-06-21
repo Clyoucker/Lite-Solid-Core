@@ -1,4 +1,0 @@
-Формула расчёта значений успеха и провала при воровстве
-
-success = int((constants.Skills["Воровство"] + Skill * Bonus) / 10)
-print(Chance(success))

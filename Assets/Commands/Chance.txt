@@ -1,6 +1,0 @@
-Формула, которая расчитывает успех и провал
-
-if Success >= randrange(11):
-	return "Успеx"
-else:
-	return "Провал"

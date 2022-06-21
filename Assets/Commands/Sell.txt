@@ -1,4 +1,0 @@
-Формула расчёта денег при продажи предмета
-
-Buy_Price = Cost + (Cost * ((Skill * Bonus) / 100))
-print(round(Money))

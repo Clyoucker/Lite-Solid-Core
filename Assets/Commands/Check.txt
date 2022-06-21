@@ -1,4 +1,0 @@
-Формула расчёта значений успеха и провала при проверке
-
-success = int((constants.Skills["Внимательность"] + Skill * Bonus) / 10)
-print(Chance(success))
