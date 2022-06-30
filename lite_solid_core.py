@@ -1,119 +1,212 @@
-import os
-import sys
 from query_corrector import *
 import player_info_datas
+import redactor
+from file_worker import *
+import os
+import sys
 import os.path
 os.chdir(sys.path[0])
 clears = lambda: os.system("cls")
 
-player = None #Временное решение. Нужна для того, чтобы игрок не мог сразу использовать действия, пока не создаст персонажа или не загрузит.
+player = None
+
 
 def main():
+	global player
 	while True:
-		def Helper():
-			while True:
-				print("Launched Helper:Помошник по командам""\n""[/Info Commands]")
-				user = help_checker(correcter_2(input("Поиск: ")))
-				if os.path.exists("Assets/Commands/" + user + ".txt"):
-					with open("Assets/Commands/" + user + ".txt", "r", encoding="utf-8") as file:
-						clears()
-						print(file.read())
-				elif os.path.exists("Assets/Langs/" + user + ".txt"):
-					with open("Assets/Langs/" + user + ".txt", "r", encoding="utf-8") as file:
-						clears()
-						print(file.read())
-				elif os.path.exists("Assets/Races/" + user + ".txt"):
-					with open("Assets/Races/" + user + ".txt", "r", encoding="utf-8") as file:
-						clears()
-						print(file.read())
-				elif os.path.exists("Assets/Rangs/" + user + ".txt"):
-					with open("Assets/Rangs/" + user + ".txt", "r", encoding="utf-8") as file:
-						clears()
-						print(file.read())
-				elif os.path.exists("Assets/Religions/" + user + ".txt"):
-					with open("Assets/Religions/" + user + ".txt", "r", encoding="utf-8") as file:
-						clears()
-						print(file.read())
-				elif os.path.exists("Assets/Skills/" + user + ".txt"):
-					with open("Assets/Skills/" + user + ".txt", "r", encoding="utf-8") as file:
-						clears()
-						print(file.read())
-				elif user == "/Back":
-					break
-				else:
-					clears()
-					print("Error!""\n""Помошник не нашёл информацию об этом элементе или его не существует!")
-		def Action():
-			global player
-			print("Если хотите узнать о командах действий, вернитесь назад [/Back] и перейдите в [/Help]")
-			while True:
-				print("Launched Action:Функция обработки действий персонажа")
-				action = correcter(input("Действие: "))
-				if action == "/Learn": clears(); player.learn(correcter_2(input("Изучить: ")))
-				elif action == "/Sell":
-					try: clears(); player.sell(correcter_2(input("Продать: ")), input("Кол-во: "))
-					except ValueError: print("Кол-во не может быть текстом!")
-				elif action == "/Buy":
-					try: clears(); player.buy(input(correcter_2("Купить: ")), int(input("Кол-во: ")))
-					except ValueError: print("Кол-во не может быть текстом!")
-				elif action == "/Proof": clears(); player.proof()
-				elif action == "/Check": clears(); player.check()
-				elif action == "/Hack": clears(); player.hack(correcter_2(input("Взломать: ")))
-				elif action == "/Steal":
-					try: clears(); player.steal(correcter_2(input("Украсть: ")), int(input("Кол-во: ")))
-					except ValueError: print("Кол-во не может быть текстом!")
-				elif action == "/Dodge":
-					try: clears(); player.dodge(int(input("Урон врага: ")))
-					except ValueError: print("Урон не может быть текстом!")
-				elif action == "/Craft":
-					try: clears(); player.craft(correcter_2(input("Создать: ")), int(input("Кол-во: ")))
-					except ValueError: print("Кол-во не может быть текстом!")
-				elif action == "/Block":
-					try: clears(); player.dodge(int(input("Урон врага: ")))
-					except ValueError: print("Урон не может быть текстом!")
-				elif action == "/Add Item": clears(); player.storage.add_item(action, correcter_2(input("Название предмета: ")), round(float(input("Кол-во: "))))
-				elif action == "/Del Item": clears(); player.storage.del_item(action, correcter_2(input("Удалить предмет: ")))
-				elif action == "/Inventory": clears(); player.storage.get_inventory()
-				elif action == "/Add Equip": clears(); player.storage.add_item(action, correcter_2(input("Надеть снаряжение: ")), round(float(input("Кол-во: "))))
-				elif action == "/Dell Equip": clears(); player.storage.del_item(action, correcter_2(input("Удалить снаряжение: ")))
-				elif action == "/Equips": clears(); player.storage.get_equipment()
-				elif action == "/Player Info": clears(); pass
-				elif action == "/Back": break
-				else: print(f"Error: Action не способен обработать такой запрос: [{action}]")
-		def Requests(searh):
-			r"""Обрабатывает основные команды, такие как /Create,/Load,/Save,/Esc,/Help,/Ver"""
-			global player
-			clears()
-			if searh == "/Help":clears(); Helper()
-			elif searh == "/Create":
-				print("Эта функция реализована на половину")
-				player = player_info_datas.Player("User-Test", "Человек", "Воин", "Паладин", "Авангард")
-				while True:
-					x = player.skills.set_skills()
-					if x == True:
-						break
-			elif searh == "/Load": clears(); print (f"Эта функция не работает: [{searh}]")
-			elif searh == "/Save": clears(); print(f"Эта функция не работает: [{searh}]")
-			elif searh == "/Action":
-				if player != None: clears(); Action()
-				else: print("Вы не можете воспользоваться действиями, пока не создадите персонажа или не загрузите его!")
-			elif searh == "/Ver": clears(); print("LSC-Public-Version-3.5.4-Beta")
-			elif searh == "/Esc": clears(); return "Break"
-			else: clears(); print(f"Error: Requests не способен обработать такой запрос: [{searh}]")
-		print("Launched Request:Функция обработки основных запросов")
-		print("[/Help][/Create][/Load][/Save][/Action][/Ver][/Esc]")
-		try:
-			res = Requests(correcter(input("Запрос: ")))
-			if res == "Break":
-				print("Программа завершена")
-				break
-		except NameError:
-			print("Error: Вы вмешались в работоспособность кода!")
-			return "Break"
-		except TypeError:
-			print("Error: Вы вмешались в работоспособность кода!")
-			return "Break"
 
+		def Action():
+			clears()
+			global player
+			while True:
+				print("Launched Action: Функция обработки действий персонажа")
+				action = command(input("Действие: "))
+
+				if player.live is True:
+					if action == "Learn":
+						player.learn(lowers(input("Изучить: ")))
+
+					elif action == "Sell":
+						try:
+							player.sell(lowers(input("Продать: ")), int(input("Кол-во: ")))
+						except ValueError:
+							print("Кол-во не может быть текстом!")
+
+					elif action == "Buy":
+						try:
+							player.buy(input(lowers("Купить: ")), int(input("Кол-во: ")))
+						except ValueError:
+							print("Кол-во не может быть текстом!")
+
+					elif action == "Craft":
+						try:
+							player.craft(lowers(input("Создать: ")), int(input("Кол-во: ")))
+						except ValueError:
+							print("Кол-во не может быть текстом!")
+
+					elif action == "Proof":
+						try:
+							player.proof(int(input("Помеха: ")))
+						except ValueError:
+							print("Помеха не может быть текстом!")
+
+					elif action == "Hack":
+						try:
+							player.hack(lowers(input("Взломать: ")), int(input("Помеха: ")))
+						except ValueError:
+							print("Помеха не может быть текстом!")
+
+					elif action == "Check":
+						try:
+							player.check(int(input("Помеха: ")))
+						except ValueError:
+							print("Помеха не может быть текстом!")
+
+					elif action == "Steal":
+						try:
+							player.steal(lowers(input("Украсть: ")), int(input("Кол-во: ")), int(input("Помеха: ")))
+						except ValueError:
+							print("Кол-во и/или Помеха не может быть текстом!")
+
+					elif action == "Dodge":
+						try:
+							player.dodge(int(input("Урон врага: ")))
+						except ValueError:
+							print("Урон не может быть текстом!")
+
+					elif action == "Block":
+						try:
+							player.block(int(input("Урон врага: ")))
+						except ValueError:
+							print("Урон не может быть текстом!")
+
+
+
+
+					elif action == "Add.Item":
+						try:
+							clears()
+							player.add_item(lowers(input("Название предмета: ")), round(float(input("Кол-во: "))))
+						except ValueError:
+							print ("Кол-во не может быть текстом!")
+
+					elif action == "Replace.Item":
+						clears()
+						player.replace(lowers(input("Предмет инвентаря: ")), int(input("Кол-во: ")), "Equipment")
+
+					elif action == "Del.Item":
+						clears()
+						player.del_item(lowers(input("Удалить предмет: ")))
+
+					elif action == "Inventory":
+						clears()
+						player.read_inventory()
+
+
+					elif action == "Add.Equip":
+						try:
+							clears()
+							player.wear_equipment(lowers(input("Надеть снаряжение: ")), int(input("Кол-во: ")))
+						except ValueError:
+							print("Кол-во не может быть текстом!")
+
+					elif action == "Replace.Equip":
+						clears()
+						player.replace(lowers(input("Предмет снаряжения: ")), int(input("Кол-во: ")), "Inventory")
+
+					elif action == "Del.Equip":
+						try:
+							clears()
+							player.del_equipments(lowers(input("Удалить снаряжение: ")))
+						except ValueError:
+							print("Кол-во не может быть текстом!")
+
+					elif action == "Equips":
+						clears()
+						player.read_equipments()
+
+
+					elif action == "Player.Info":
+						clears()
+						player.get_info()
+
+					elif action == "Back":
+						break
+
+					else:
+						print (f"Error: Action не способен обработать такой запрос: [{action}]")
+				else:
+					print("Вы умерли и не можете ничего сделать!")
+					break
+
+
+		def Requests(searh):
+			global player
+
+			if searh == "Web":
+				clears()
+				print("Система не можем открыть Web LSC, так как отсутствует локальный сервер")
+				print("Работа над этим ещё ведётся, но вы сами можете открыть вручную по этому пути: Assets/Web/HTML/Lite-Solid-Core.html")
+
+			elif searh == "Help":
+				clears()
+				with open("Assets/Commands/Commands.txt", "r", encoding="utf-8") as file:
+					print(file.read())
+
+			elif searh == "Redactor":
+				redactor.run()
+
+			elif searh == "Create":
+				clears()
+				player = player_info_datas.Player("User-Test", "человек", "воин", "паладин", "авангард", "сихритизм")
+				while True:
+					res = player.set_skills()
+					if res is True:
+						break
+				player.set_char()
+
+			elif searh == "Load":
+				clears()
+				try:
+					player = PFUD.load_pickle()
+				except FileNotFoundError:
+					print("У вас нету файла, который вы можете загрузить")
+
+			elif searh == "Save":
+				clears()
+				if player is not None:
+					PFUD.save_pickle(player)
+				else: print("Сохранением нельзя воспользоваться, т.к вам нечего сохранять")
+
+			elif searh == "Action":
+				if player is not None:
+					Action()
+				else:
+					print("Вы не можете воспользоваться действиями, пока не создадите персонажа или не загрузите его!")
+
+			elif searh == "Ver":
+				clears()
+				LSC.read_config("version")
+
+			elif searh == "Esc":
+				return "Break"
+
+			else:
+				print(f"Error: Requests не способен обработать такой запрос: [{searh}]")
+
+		print("Launched Request:Функция обработки основных запросов")
+		print("[Help][Web][Redactor][Create][Load][Save][Action][Ver][Esc]")
+
+		res = Requests(command(input("Запрос: ")))
+
+		if res == "Break":
+			clears()
+			if player is not None:
+				PFUD.save_pickle(player)
+				print ("Программа завершена и изменения сохранены")
+			else:
+				print("Программа завершена")
+			break
 
 if __name__ == "__main__":
 	clears()

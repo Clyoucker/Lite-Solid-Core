@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/settings.css">
+    <title>Lite-Solid-Core</title>
+</head>
+<body class = "page">
+    <div class="wrapper">
+        <header class="header">
+            <nav class = "header_nav">
+                <a href="../HTML/Lite-Solid-Core.html" class="item_nav">LSC</a>
+                <a href="../HTML/Gods.html" class="item_nav">Gods</a>
+                <a href="../HTML/Characters.html" class="item_nav">Characters</a>
+                <a href="../HTML/Enemys.html" class="item_nav">Enemys</a>
+                <a href="../HTML/Races.html" class="item_nav">Races</a>
+                <a href="../HTML/Classes.html" class="item_nav">Classes</a>
+                <a href="../HTML/Professions.html" class="item_nav">Professions</a>
+                <a href="../HTML/Specializations.html" class="item_nav">Specializations</a>
+                <a href="../HTML/Skills.html" class="item_nav item__nav__active">Skills</a>
+                <a href="../HTML/Abilities.html" class="item_nav">Abilities</a>
+                <a href="../HTML/Items.html" class="item_nav">Items</a>
+                <a href="../HTML/Equips.html" class="item_nav">Equips</a>
+                <a href="../HTML/Weapons.html" class="item_nav">Weapons</a>
+            </nav>
+        </header>
+        <main class="main">
+            <section class = "section section-foundation-cards">
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Steal.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Воровство</h2>
+                        <p class = "descriptions">Увеличивает шансы кражи предмета, при условии, что ваc могут заметить. Воровство наказуемо, так что будьте осторожны.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 20%<br>
+                            Пассивный бонус: +8%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Hack.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Взлом</h2>
+                        <p class = "descriptions">Увеличивает шансы взлома механизма. Механизмом может выступать дверь, сундук и т.п.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Мудрость</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 25%<br>
+                            Пассивный бонус: +5%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/None.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Обман</h2>
+                        <p class = "descriptions">Если лож вскроется, то повторно соврать одной и той же цели не получится.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Запугивание</span></p>
+                            <p><span class = "marker">Социальностью</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 35%<br>
+                            Пассивный бонус: +6%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Intimidation.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Запугивание</h2>
+                        <p class = "descriptions">Вы можете заставить человека молчать о каком-либо происшествии, при помощи угроз.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Обман</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 47%<br>
+                            Пассивный бонус: +4%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Sociality.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Социальность</h2>
+                        <p class = "descriptions">Не всё решается грубой силой, иногда общение является лучшим ключом ко всему.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Эмпатия</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 45%<br>
+                            Пассивный бонус: +4%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Mastery.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Мастерство</h2>
+                        <p class = "descriptions">Умелое обращение с оружием дальнего или ближдего действия.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: ?%<br>
+                            Пассивный бонус: +?%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Brain.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Мудрость</h2>
+                        <p class = "descriptions">Влияет на возможность понимать другие языки рас и устройство механизмов.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 15%<br>
+                            Пассивный бонус: +5%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Body.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Телосложение</h2>
+                        <p class = "descriptions">Имея крепкое телосложение, вы можете выдержать серьёзный удар и продолжить вести бой.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 5%<br>
+                            Пассивный бонус: +8%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Attentiveness.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Внимательность</h2>
+                        <p class = "descriptions">Вы можете понять, что человек вас пытается обмануть или что-то недоговаривает, заметить ловушку, распознать скрытый проход и м.д.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Кошачий глаз</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 30%<br>
+                            Пассивный бонус: +3%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Ingenuity.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Изобретательность</h2>
+                        <p class = "descriptions">Возможность создавать разнообразные предметы.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Мудрость</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 28%<br>
+                            Пассивный бонус: +6%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Power.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Сила</h2>
+                        <p class = "descriptions">Влияет на переносимый вес и урон.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Телосложение</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 14кг|12кг<br>
+                            Пассивный бонус: +4кг
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/dexterity.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Ловкость</h2>
+                        <p class = "descriptions">Влияет на шанс уворота от удара или преодоление ситуаций, где может помочь ловкость.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 50%<br>
+                            Пассивный бонус: +5%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Accuracy.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Меткость</h2>
+                        <p class = "descriptions">Повышает точность по цели будучи в близи или в дали.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 65%<br>
+                            Пассивный бонус: +4%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Manipulation.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Манипулирование</h2>
+                        <p class = "descriptions">Манипулирование, почти как власть, только оно намного слаще.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Обман</span></p>
+                            <p><span class = "marker">Социальность</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 8%<br>
+                            Пассивный бонус: +5%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Will.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Воля</h2>
+                        <p class = "descriptions">Имея высокую волю, вы можете сопротивляться Манипуляции и психологическому воздействию.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Адаптивность</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 35%<br>
+                            Пассивный бонус: +9%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Hiden.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Скрытность</h2>
+                        <p class = "descriptions">Возможность пройти незамеченным между врагами или проникнуть в запретные места не подняв шум.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Ловкость</span></p>
+                            <p><span class = "marker">Кошачий глаз</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 40%<br>
+                            Пассивный бонус: +6%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Herbalist.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Травничество</h2>
+                        <p class = "descriptions">Познания о травах и зельях, никогда не бывает лишним, особенно в путишествии.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Мудрость</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 20%<br>
+                            Пассивный бонус: +15%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Resources.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Ресурсы</h2>
+                        <p class = "descriptions">Поиск всякий материалов, оружий и тому подобного.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Внимательность</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 55%<br>
+                            Пассивный бонус: +3%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Horses.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Езда верхом</h2>
+                        <p class = "descriptions">Передвигаться на своих двоих удобно конечно, но куда быстрее и лучше на лошадях.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Адаптивность</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: ?%<br>
+                            Пассивный бонус: +?%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Intelligence Service.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Разведка</h2>
+                        <p class = "descriptions">Позволяет собрать более подробную информацию о враге, местности и тому подобное.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Адаптивность</span></p>
+                            <p><span class = "marker">Мудрость</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 28%<br>
+                            Пассивный бонус: +4%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Lungs.png" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Амфибицизм</h2>
+                        <p class = "descriptions">Крепкие лёгкие весьма хороши, особенно если вам угрожает вода или нужно тикать в забугорье.</p>
+                        <div class="chain-bonuses">
+                            <div class="chain-bonuses">
+                                <div class="icon-chain">
+                                    <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                                </div>
+                                <p><span class = "marker">Адаптивность</span></p>
+                            </div>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: ?%<br>
+                            Пассивный бонус: +?%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Cat Eyes.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Кошачий глаз</h2>
+                        <p class = "descriptions">Тренировки в темноте прошли не даром. Если враг затаился в темноте, у вас есть все шансы его увидеть и атаковать первым, застав врасплох.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Адаптивность</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: ?%<br>
+                            Пассивный бонус: +?%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Adaptability.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Адаптивность</h2>
+                        <p class = "descriptions">Даёт бонусы к некоторым скилам при их использовании</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: ?%<br>
+                            Пассивный бонус: +?%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Psyche.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Психика</h2>
+                        <p class = "descriptions">Запугивание на вас просто так не сработает, если вы имеете крепкую психику.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Воля</span></p>
+                            <p><span class = "marker">Адаптивность</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 24%<br>
+                            Пассивный бонус: +8%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Trade.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Торговля</h2>
+                        <p class = "descriptions">Знания торговли всегда очень ценно, так как с её помощью можно легко разбогатеть.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 0%<br>
+                            Пассивный бонус: +10%|5%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Occultism.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Оккультизм</h2>
+                        <p class = "descriptions">Скрытые знания не подвластные простому смертному могут быть вашим козырем в светлое или тёмное будущее, кто знает, как вы их будите использовать.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 0%<br>
+                            Пассивный бонус: +5%|5%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Blessing.png" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Благословение</h2>
+                        <p class = "descriptions">Покровительство богов снизошло на вас и теперь будет всегда с вами даже в трудные моменты жизни.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 5%<br>
+                            Пассивный бонус: +2%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Justice.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Правосудие</h2>
+                        <p class = "descriptions">Будучи на грани гибели, вы будите биться до последнего вздоха.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Условие: HP меньше 100ед<br>
+                            Стандартное значение: 0%<br>
+                            Пассивный бонус: +15%|8%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Heal.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Первая помощь</h2>
+                        <p class = "descriptions">Познания в медицине позволяют вам минимизировать серьёзные раны и вылечить себя в критические моменты.</p>
+                        <div class="chain-bonuses">
+                            <div class="icon-chain">
+                                <img class = "icon" src="../Assets/Icons/Chain.svg" alt="chain">
+                            </div>
+                            <p><span class = "marker">Адаптивность</span></p>
+                        </div>
+                        <p><span class = "marker">
+                            Стандартное значение: 0%<br>
+                            Пассивный бонус: +12%|4%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Charm.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Очарование</h2>
+                        <p class = "descriptions">Вы сильно привлекаете внимание окружающих, особенно противоположный пол.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 25%<br>
+                            Пассивный бонус: +8%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Stomach.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Крепкий желудок</h2>
+                        <p class = "descriptions">Что вы только не если в своей жизни. И как вы ещё живы?</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 15%<br>
+                            Пассивный бонус: +25%
+                        </span></p>
+                    </div>
+                </div>
+                <div class="card-foundation">
+                    <div class="card-foundation-background">
+                        <img class = "image img__opacity" src="../Assets/IMG/Skills/Absorption.jpg" alt="skill">
+                    </div>
+                    <div class="card-foundation-content">
+                        <h2 class = "title">Поглощение</h2>
+                        <p class = "descriptions">Когда вы убиваете монстров, вы получаете часть их характеристик.</p>
+                        <div class="chain-bonuses"></div>
+                        <p><span class = "marker">
+                            Стандартное значение: 0%<br>
+                            Пассивный бонус: +0.002% 
+                        </span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

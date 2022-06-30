@@ -1,0 +1,24 @@
+.header{
+    width: 12%;
+    background-color: #1E1E25;
+}
+.header_nav{
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+}
+.item_nav{
+    position: relative;
+    font-size: 24px;
+    letter-spacing: 12%;
+    color: #454083;
+}
+.item_nav::after{
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #454083;
+}

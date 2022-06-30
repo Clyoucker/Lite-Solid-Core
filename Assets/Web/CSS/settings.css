@@ -1,0 +1,56 @@
+@import url("../CSS/animations.css");
+@import url("../CSS/scroll_bar.css");
+@import url("../CSS/pages.css");
+@import url("../CSS/media.css");
+@import url("../CSS/fonts.css");
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+    color: white;
+    font-family: "EB-Garamond-Regular";
+}
+body, html{
+    height: 100%;
+    overflow-x: hidden;
+}
+.page{
+    background-color: #1F2028;
+}
+.wrapper{
+    display: flex;
+    max-width: 1920px;
+    min-height: 100%;
+    margin: 0 auto;
+}
+.image{
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.icon{
+    display: block;
+    object-fit: contain;
+    width: 100%;
+    height: 100%; 
+}
+.icon-bonus{
+    width: 64px;
+    height: 64px;
+}
+.image__rows{
+    object-position: top;
+}
+.img__opacity{
+    filter: brightness(64%);
+}
+.item__nav__active, .marker{
+    color: #EB621D;
+}
+h1,h2,h3,h4,h5,h6,p,ul>li{
+    pointer-events: none;
+}

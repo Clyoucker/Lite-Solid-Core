@@ -1,609 +1,679 @@
-from random import *
-import constants
-import formuls
-import items
+import formulas
+from random import randint
+from file_worker import *
 
-class Data:
-    def __init__(self, name, race, clas, prof, spec):
-        self.Name = name
-        self.Race = race
-        self.Clas = clas
-        self.Prof = prof
-        self.Spec = spec
-        self.Rel = "Сихритизм"
-        self.Rank = "X"
+_config = LSC.get_config()
+_items = JFO.get_object()
 
-    def data_info(self):
-        pass
+_weapons = JFO.get_object("weapons")
+_equips = JFO.get_object("equips")
+_wears = _weapons | _equips
 
-    def __set_mame(self, NewName):
-        try:
-            if NewName.isalpha():
-                self.Name = NewName
-        except AttributeError:
-            print("Ваше имя не может состоять из цифр")
+
+_races = JFC.get_constants("races")
+_classes = JFC.get_constants("class")
+_profs = JFC.get_constants("profs")
+_specs = JFC.get_constants("specs")
+_rels = JFC.get_constants("religions")
+_ranks = JFC.get_constants("ranks")
+
+_info = _races | _classes | _profs | _specs | _rels | _ranks
+
+_abilities = JFC.get_constants("abilities")
+
+
+class Character:
+    def __init__(self, name, race, clas, prof, spec, rel):
+        self.info = {"имя":name, "раса":race, "класс":clas, "профессия":prof, "специализация":spec, "религия":rel,"ранг":"x"}
+        self.char = {"здоровье":None,"мана":None,"выносливость":None,"защита":None,"урон":None}
+        self.constant_char = {"здоровье":None,"мана":None,"выносливость":None,"защита":None,"урон":None}
+
+
+    def __change_name(self, new_name):
+        nn = new_name
+        while True:
+            if " " in new_name:
+                new_name.replace(" ", "")
+            else:
+                break
+        if new_name.isalpha() == True and len(new_name) > 2:
+            self.info.update(имя=nn)
+        else:
+            print(f"Error: {nn} incorrect name")
+
+    def __change_race(self, new_race):
+        if new_race in _races:
+            self.info.update(раса=new_race)
+        else:
+            print(f"Error: {new_race} incorrect name")
+
+    def __change_clas(self, new_clas):
+        if new_clas in _classes:
+            self.info.update(класс=new_clas)
+        else:
+            print(f"Error: {new_clas} incorrect name")
+
+    def __change_prof(self, new_prof):
+        if new_prof in _profs:
+            self.info.update(профессия=new_prof)
+        else:
+            print(f"Error: {new_prof} incorrect name")
+
+    def __change_spec(self, new_spec):
+        if new_spec in _specs:
+            self.info.update(специализация=new_spec)
+        else:
+            print(f"Error: {new_spec} incorrect name")
+
+    def __change_rel(self, new_rel):
+        if new_rel in _rels:
+            self.info.update(религия=new_rel)
+        else:
+            print(f"Error: {new_rel} incorrect name")
+
+    def __change_rank(self, new_rank):
+        if new_rank in _ranks:
+            self.info.update(ранг=new_rank)
+        else:
+            print(f"Error: {new_rank} incorrect name")
+
+
+    def get_info(self):
+        return self.info
+
     def __get_name(self):
-        return self.Name
+        return self.info["имя"]
 
-    def __set_race(self, NewRace):
-        if NewRace in constants.Races.keys():
-            self.Race = NewRace
-        else:
-            print("Вы вписали несуществующую расу")
     def __get_race(self):
-        return self.Race
+        return self.info["раса"]
 
-    def __set_clas(self, NewClas):
-        if NewClas in constants.Class.keys():
-            self.Clas = NewClas
-        else:
-            print("Вы вписали несуществующий класс")
     def __get_clas(self):
-        return self.Clas
+        return self.info["класс"]
 
-    def __set_prof(self, NewProf):
-        if NewProf in constants.Profs.keys():
-            self.Prof = NewProf
-        else:
-            print("Вы вписали несуществующую профессию")
     def __get_prof(self):
-        return self.Prof
+        return self.info["профессия"]
 
-    def __set_spec(self, NewSpec):
-        if NewSpec in constants.Specs:
-            self.Spec = NewSpec
-        else:
-            print("Вы вписали несуществующую специализацию")
     def __get_spec(self):
-        return self.Spec
+        return self.info["специализация"]
 
-    def __set_rel(self, NewRel):
-        if NewRel in constants.Religions:
-            self.Rel = NewRel
-        else:
-            print("Вы вписали несуществующую религию")
     def __get_rel(self):
-        return self.Rel
+        return self.info["религия"]
 
-    def __set_rank(self, NewRank):
-        if NewRank in constants.Ranks:
-            self.Rank = NewRank
-        else:
-            print("Вы вписали несуществующий ранг")
     def __get_rank(self):
-        return self.Rank
+        return self.info["ранг"]
 
-    name = property(__get_name, __set_mame)
-    race = property(__get_race, __set_race)
-    clas = property(__get_clas, __set_clas)
-    prof = property(__get_prof, __set_prof)
-    spec = property(__get_spec, __set_spec)
-    rank = property(__get_rank, __set_rank)
+
+    def __get_char(self):
+        return self.char
+
+    def __get_constant_char(self):
+        return self.constant_char
+
+
+    name = property(__get_name, __change_name)
+    race = property(__get_race, __change_race)
+    clas = property(__get_clas, __change_clas)
+    prof = property(__get_prof, __change_prof)
+    spec = property(__get_spec, __change_spec)
+    rel = property(__get_rel, __change_rel)
+    rank = property(__get_rank, __change_rank)
+
 
 class Skills:
 
     def __init__(self):
-        self.MaxSkills = 9
-        self.Skills = dict()
-        self.Body = 1
-        self.Master = 1
-        self.Brein = 1
-        self.Power = 1
-        self.Dexterity = 1
+        self.max_skills = _config["max_skills"]
+        self.skills = dict()
+        self.all_skills = JFC.get_constants("skills")
+        #self.default = {"телосложение": None, "мастерство": None, "мудрость": None, "сила": None, "выносливость": None}
 
     def set_skills(self):
-        #lstskills = input("9 Скилов через пробел: ").lower().title().split()
-        lstskills = ["Торговля", "Мастерство", "Сила", "Телосложение", "Очарование", "Воля", "Ловкость", "Ресурсы", "Благословение"]
+        user_skills = [input(f"{i} Скилл: ").lower() for i in range(1, 10)]
+        #user_skills = ["сила", "торговля", "мудрость", "внимательность", "очарование", "обман", "телосложение", "поглощение", "адаптивность"]
+        sets = set (user_skills)
         count = 0
-        lenlstskills = set(lstskills)
-        if len(lenlstskills) == self.MaxSkills:
-            for i in lstskills:
-                if i in constants.Skills.keys():
-                    count +=1
-                    if count == 9:
-                        print("Все навыки соответствуют константному списку навыков!")
-                        self.Skills = {
-                            lstskills[0]: 4,
-                            lstskills[1]: 3,
-                            lstskills[2]: 3,
-                            lstskills[3]: 2,
-                            lstskills[4]: 2,
-                            lstskills[5]: 2,
-                            lstskills[6]: 1,
-                            lstskills[7]: 1,
-                            lstskills[8]: 1}
-                        return True
-                else:
-                    count -= 1
-        else:
-            print("Вы ввели меньше 9 навыков или вовсе несуществующие навыки или же, навыки повторяются")
+        try:
+            if len(sets) == self.max_skills:
+                for skill in user_skills:
+                    if skill in self.all_skills:
+                        count += 1
+                    else: raise KeyError(f"{skill}: wasn't found in all skills")
+            else: raise SyntaxError(f"{user_skills} != 9")
 
-    def ref_skills(self):
-        if "Мудрость" in self.Skills:
-            self.Brein = self.Skills["Мудрость"]
-        else:
-            pass
-        if "Телосложение" in self.Skills:
-            self.Body = self.Skills["Телосложение"]
-        else:
-            pass
-        if "Сила" in self.Skills:
-            self.Power = self.Skills["Сила"]
-        else:
-            pass
-        if "Ловкость" in self.Skills:
-            self.Dexterity = self.Skills["Ловкость"]
-        else:
-            pass
-        if "Мастерство" in self.Skills:
-            self.Master = self.Skills["Мастерство"]
-        else:
+            if count == 9:
+                self.skills = {
+                    user_skills[0]:5, user_skills[1]:4,
+                    user_skills[2]:4, user_skills[3]:3,
+                    user_skills[4]:3, user_skills[5]:3,
+                    user_skills[6]:2, user_skills[7]:2,
+                    user_skills[8]:2
+                }
+
+                for i in self.skills:
+                    _config[i] = self.skills[i]
+        except:
             pass
 
-    """
-    def set_skills(self, lstskills):
-        #lstskills = ["Изобретательность", "Мастерство", "Сила", "Телосложение", "Очарование", "Воля", "Ловкость", "Ресурсы", "Благословение"]
-        count = 0
-        lenlstskills = set(lstskills)
-        if len(lenlstskills) == self.MaxSkills:
-            for i in lstskills:
-                if i in constants.Skills.keys():
-                    count +=1
-                    if count == 9:
-                        print("Все навыки соответствуют константному списку навыков!")
-                        self.Skills = {
-                            lstskills[0]:4,
-                            lstskills[1]:3,
-                            lstskills[2]:3,
-                            lstskills[3]:2,
-                            lstskills[4]:2,
-                            lstskills[5]:2,
-                            lstskills[6]:1,
-                            lstskills[7]:1,
-                            lstskills[8]:1}
-                        return True
-                else:
-                    count -= 1
         else:
-            print("Вы ввели меньше 9 навыков или вовсе несуществующие навыки или же, навыки повторяются")
-    """
-    def __change_skills(self, NewSkill):
-        if NewSkill in constants.Skills.keys():
-            Skill = input("Напишите название скила, который хотите заменить: ")
-            if Skill in self.Skills.keys():
-                self.Skills[NewSkill] = self.Skills.pop(Skill)
-            else:
-                print("Вы не можете заменить этот скил, так как его нету у персонажа.")
-        else:
-            print("Новый скилл не соответствует константам скилов!")
+            print("Способности соответствуют списку способностей")
+            return True
 
-    def __get_skills(self):
-        return self.Skills
+    def change_skills(self, old_skill, new_skill):
+        if new_skill in self.all_skills and new_skill not in self.skills:
 
-    skil = property(__get_skills, __change_skills)
+            if old_skill in self.skills:
+                self.skills[new_skill] = self.skills.pop(old_skill)
+
+                for i in self.skills:
+                    _config[i] = self.skills[i]
+
+            else: raise KeyError (f"{old_skill}: wasn't found")
+
+        else: raise KeyError(f"{new_skill}: wasn't found")
 
 class Abilities:
 
     def __init__(self):
-        self.MaxAbilitiesSize = 12
-        self.slot_limit = 0
-        self.Abilities = {}
+        self.max_abilities = _config["max_abilities"]
+        self.abilities = {}
 
-    def add_abilitie(self, abilities_name):
-        if self.slot_limit < self.MaxAbilitiesSize:
-            self.Abilities[abilities_name] = constants.Abilities.get(abilities_name)
-            self.slot_limit += 1
+    def add_abilities(self, new_abilities):
+        if  len(self.abilities) < self.max_abilities and new_abilities not in self.abilities:
+            if new_abilities in _abilities:
+                self.abilities[new_abilities] = JFC.get_constants("abilities", new_abilities)
+
+            else: print(f"{new_abilities}: wasn't found")
+
         else:
-            print("Вы больше не можете изучать новые способности!")
+            print("Вы больше не можете изучать новые способности или вы уже её изучили!")
 
-    def get_abilitie(self):
-        return self.Abilities
+    def change_abilities(self, old_abilities, new_abilities):
+        if new_abilities in _abilities and new_abilities not in self.abilities:
 
-class Storage:
+            if old_abilities in self.abilities:
+                self.abilities[new_abilities] = self.abilities.pop(old_abilities)
 
-    def __init__(self):
-        self.inventory_weight = 0 #не трогать! в неё записывается общий размер всех предметов из инвентаря, а потом сравнивается с максимальным размером инвентаря inventory_size
-        self.equipment_weight = 0 #не трогать! в неё записывается общий размер всех предметов из снаряжения, а потом сравнивается с максимальным размером инвентаря equipment_size
+            else: raise KeyError (f"{old_abilities}: wasn't found")
 
-        self.inventory = {} #не трогать!
-        self.inventory_size = 14 #Можно трогать
+        else: raise KeyError(f"{new_abilities}: wasn't found")
 
-        self.equipment_size = 12 #Можно трогать
-        self.equipment = {} #не трогать!
-        self.slot_limit = 10 #Можно трогать. Отвечает за максимальное кол-во обмундирования в equipment
+    def del_abilities(self, abilities_name):
+        pass
 
-    def add_item(self, stor, item_name, item_amount):
-        if stor == "/Add Item":
-            if item_name in items.Objects and item_amount != 0:
-                weight = self.inventory_weight + item_amount * items.All_Items[item_name]["weight"]
-                if weight <= self.inventory_size:
-                    try:
-                        res = -1 * self.inventory[item_name]["amount"]
-                        if res <= item_amount:
-                            self.inventory[item_name] = {
-                                "amount": self.inventory[item_name]["amount"] + item_amount,
-                                "weight": (self.inventory[item_name]["amount"] + item_amount) * items.All_Items[item_name]["weight"],
-                                "cost": items.All_Items[item_name]["cost"]
-                            }
-                            self.inventory_weight = weight
-                            print(f"Update:{item_name}")
-                        else: print("Error item_amount+")
-                    except KeyError:
-                        if item_amount < 0:
-                            print("Error item_amount")
-                        else:
-                            self.inventory[item_name] = {
-                                "amount": item_amount,
-                                "weight": items.All_Items[item_name]["weight"] * item_amount,
-                                "cost": items.All_Items[item_name]["cost"]
-                            }
-                            self.inventory_weight = weight
-                            print(f"New:{item_name}")
-                    finally:
-                        try:
-                            if self.inventory[item_name]["amount"] <= 0:
-                                del self.inventory[item_name]
-                                print(f"Del:{item_name}")
-                        except KeyError:
-                            print(f"this item is not defined in the inventory: {item_name}")
-                else:
-                    print("You need more free weight")
-            else:
-                print(f"Unknown Item: {item_name}")
-        elif stor == "/Add Equip":
-            if item_name in items.Equip and item_amount != 0:
-                weight = self.equipment_weight + item_amount * items.Equip[item_name]["weight"]
-                if weight <= self.equipment_size:
-                    try:
-                        res = -1 * self.equipment[item_name]["amount"]
-                        if res <= item_amount and self.slot_limit != 0:
-                            self.equipment[item_name] = {
-                                "amount": self.equipment[item_name]["amount"] + item_amount,
-                                "weight": (self.equipment[item_name]["amount"] + item_amount) * items.Equip[item_name]["weight"],
-                                "cost": items.Equip[item_name]["cost"]
-                            }
-                            self.slot_limit = self.slot_limit - item_amount
-                            self.equipment_weight = weight
-                            print(f"Update:{item_name}")
-                        else: print("Error item_amount+ or equipment is more than 10")
-                    except KeyError:
-                        if item_amount < 0 or self.slot_limit == 0:
-                            print("Error item_amount+")
-                        else:
-                            self.equipment[item_name] = {
-                                "amount": item_amount,
-                                "weight": items.Equip[item_name]["weight"] * item_amount,
-                                "cost": items.Equip[item_name]["cost"]
-                            }
-                            self.slot_limit -= item_amount
-                            self.equipment_weight = weight
-                            print(f"New:{item_name}")
-                    finally:
-                        try:
-                            if self.equipment[item_name]["amount"] <= 0:
-                                del self.equipment[item_name]
-                                print(f"Del:{item_name}")
-                        except KeyError:
-                            print(f"this item is not defined in the inventory: {item_name} or equipment is more than 10")
-                else:
-                    print("You need more free weight or equipment is more than 10")
-            else:
-                print(f"Unknown Item: {item_name}")
-        else: print("Unknown Command")
-
-    def del_item(self, stor, item_name):
-        if stor == "/Del Equip":
-            if item_name in self.equipment:
-                self.equipment_weight -= self.equipment[item_name]["weight"]
-                self.slot_limit += self.equipment[item_name]["amount"]
-                del self.equipment[item_name]
-                print(f"Del: {item_name}")
-            else: print("Unknown equip")
-        elif stor == "/Del Item":
-            if item_name in self.inventory:
-                self.inventory_weight -= self.inventory[item_name]["weight"]
-                del self.inventory[item_name]
-                print(f"Del: {item_name}")
-            else: print("Unknown item")
-        else: print("Unknown Command")
-
-    def replace_item(self, stor, item_name):
-        if stor == "/Replace Equip":
-            if item_name in self.equipment:
-                print("No Work")
-        elif stor == "/Wear Equip":
-            print ("No Work")
-        else: print("Unknown Command")
-
-    def get_equipment(self):
-        print(f"{self.equipment_weight}: {self.equipment}")
-
-    def get_inventory(self):
-        print(f"{self.inventory_weight}: {self.inventory}")
-
-class Player(Data):
-    def __init__(self, name, race, clas, prof, spec):
-        super().__init__(name, race, clas, prof, spec)
-        self.Hp = None
-        self.Mp = None
-        self.Df = None
-        self.Sm = None
-        self.DMG = None
-        self.Basis = {}
-        self.constbas = []
-        self.stats = {race: constants.Races[race], clas: constants.Class[clas], prof: constants.Profs[prof], spec: constants.Specs[spec]}
-        self.abilities = Abilities()
-        self.skills = Skills()
-        self.storage = Storage()
+class Capability(Character, Skills, Abilities):
+    def __init__(self, name, race, clas, prof, spec, rel):
+        Abilities.__init__(self)
+        Skills.__init__(self)
+        Character.__init__(self, name, race, clas, prof, spec, rel)
 
     def set_char(self):
-        self.Hp = constants.Min["MinHP"] + (self.skills.Body * ((self.stats[self.prof] * self.stats[self.Spec]) + (self.stats[self.race] * self.stats[self.clas])))
-        self.Mp = constants.Min["MinMP"] + (self.skills.Brein * ((self.stats[self.prof] * self.stats[self.Spec]) + (self.stats[self.race] * self.stats[self.clas])))
-        self.Sm = constants.Min["MinSM"] + (self.skills.Dexterity * ((self.stats[self.prof] * self.stats[self.Spec]) + (self.stats[self.race] * self.stats[self.clas])))
-        self.Df = constants.Min["MinDF"] + self.skills.Brein
-        self.DMG = constants.Min["MinDMG"] + self.skills.Master * self.skills.Dexterity * self.skills.Power * self.skills.Brein
-        if self.clas == "Маг":
-            self.Hp = int(self.Hp / 1.4)
-            self.Mp = int(self.Mp * 1.3)
-            self.Sm = int(self.Sm / 1.3)
-            self.Df = int(self.Df * 1.1)
-            self.DMG = int(self.DMG * 1.2)
-        elif self.clas == "Воин":
-            self.Hp = int(self.Hp * 1.4)
-            self.Mp = int(self.Mp / 1.3)
-            self.Sm = int(self.Sm * 1.3)
-            self.Df = int(self.Df * 1.2)
-        elif self.clas == "Стрелок":
-            self.Hp = int(self.Hp / 1.4)
-            self.Mp = int(self.Mp * 1.2)
-            self.Sm = int(self.Sm * 1.2)
-            self.Df = int(self.Df * 1.2)
-            self.DMG = int(self.DMG * 1.3)
-        elif self.clas == "Никто":
-            self.Hp = constants.Min["MinHP"]
-            self.Mp = constants.Min["MinMP"]
-            self.Sm = constants.Min["MinSM"]
-            self.Df = int(self.Df * 1.4)
-            self.DMG = int(self.DMG * 1.5)
+        self.char.update(здоровье=formulas.Calc_Hp(JFC.get_constants("characteristics","здоровье", "минимальное"),
+                                                        _config["body"],
+                                                        JFC.get_constants("profs", self.info["профессия"], "бонус"),
+                                                        JFC.get_constants("specs", self.info["специализация"], "бонус"),
+                                                        JFC.get_constants("races", self.info["раса"], "бонус"),
+                                                        JFC.get_constants("class", self.info["класс"], "бонус"),
+                                                        self.info["класс"]))
+
+        self.char.update(выносливость=formulas.Calc_Sm(JFC.get_constants("characteristics", "выносливость", "минимальное"),
+                                                        _config["dexterity"],
+                                                        JFC.get_constants("profs",self.info["профессия"],"бонус"),
+                                                        JFC.get_constants("specs",self.info["специализация"],"бонус"),
+                                                        JFC.get_constants("races",self.info["раса"],"бонус"),
+                                                        JFC.get_constants("class",self.info["класс"],"бонус"),
+                                                        self.info["класс"]))
+
+        self.char.update(мана=formulas.Calc_Mp(JFC.get_constants("characteristics", "мана", "минимальное"),
+                                                        _config["wisdom"],
+                                                        JFC.get_constants("profs",self.info["профессия"],"бонус"),
+                                                        JFC.get_constants("specs",self.info["специализация"],"бонус"),
+                                                        JFC.get_constants("races",self.info["раса"],"бонус"),
+                                                        JFC.get_constants("class",self.info["класс"],"бонус"),
+                                                        self.info["класс"]))
+
+        self.char.update(защита=formulas.Calc_Df(JFC.get_constants("characteristics", "защита", "минимальное"),
+                                                       _config["body"],
+                                                       JFC.get_constants("class",self.info["класс"], "бонус"),
+                                                       self.info["класс"]))
+
+        self.char.update(урон=formulas.Calc_Dmg(JFC.get_constants("characteristics", "урон", "минимальное"),
+                                                      _config["mastery"],
+                                                      _config["power"],
+                                                      _config["wisdom"],
+                                                      self.info["класс"]))
+
+        self.constant_char.update(
+            здоровье=self.char["здоровье"],
+            мана=self.char["мана"],
+            выносливость=self.char["выносливость"],
+            защита=self.char["защита"],
+            урон=self.char["урон"])
+
+
+class Inventory:
+    def __init__(self):
+        self.inventory_weight = 0
+        self.inventory = {}
+        self.inventory_size = _config["inventory_size"]
+        self.inventory_cost = 0
+
+    def add_item(self, item_name, item_amount):
+        if item_name in _items:
+            weight = self.inventory_weight + item_amount * JFO.get_object(None, item_name, "вес")
+            if weight <= self.inventory_size:
+
+                try:
+                    amount = -1 * self.inventory[item_name]["количество"]
+                    if amount <= item_amount:
+                        self.inventory[item_name] = {
+                            "количество": self.inventory[item_name]["количество"] + item_amount,
+                            "вес": round((self.inventory[item_name]["количество"] + item_amount) * JFO.get_object(None, item_name, "вес"), 2),
+                            "цена": JFO.get_object(None, item_name, "цена")
+                        }
+                        self.inventory_weight = round(weight,2)
+                        self.inventory_cost += self.inventory[item_name]["цена"] * item_amount
+                        print(f"Update: {item_name}")
+                    else:
+                        print(f"Error: {item_amount} < {amount}")
+
+                except KeyError:
+                    if item_amount <= 0:
+                        raise ValueError(f"{item_amount} not be <= 0")
+                    else:
+                        self.inventory[item_name] = {
+                            "количество": item_amount,
+                            "вес": round(JFO.get_object(None, item_name, "вес") * item_amount, 2),
+                            "цена": JFO.get_object(None, item_name, "цена")
+                        }
+                        self.inventory_weight = round(weight, 2)
+                        self.inventory_cost += self.inventory[item_name]["цена"] * self.inventory[item_name]["количество"]
+                        print(f"New: {item_name}")
+
+                finally:
+                    try:
+                        if self.inventory[item_name]["количество"] <= 0:
+                            self.inventory_cost -= self.inventory[item_name]["цена"] * self.inventory[item_name]["количество"]
+                            del self.inventory[item_name]
+                            print(f"Del: {item_name}")
+                            return "0x0"
+                        else:
+                            return "0x0"
+                    except KeyError:
+                        print(f"{item_name}: wasn't found in the inventory")
+                        return "0x1"
+            else:
+                print("you need more free weight")
+                return "0x1"
         else:
-            print("Ваш класс не обнаружен в константах, но даже так, характеристики будут расчитаны, но только рандомно!")
-            self.Hp = int(self.Hp * randint(1, 3))
-            self.Mp = int(self.Mp * randint(1, 3))
-            self.Sm = int(self.Sm * randint(1, 3))
-            self.Df = int(self.Df * randint(1, 3))
-            self.DMG = int(self.DMG * randint(1, 3))
-        self.Basis = {"Hp": self.Hp, "Mp": self.Mp, "Sm": self.Sm, "Df": self.Df, "Dmg": self.DMG}
-        self.constbas = [self.Hp, self.Mp, self.Sm, self.Df, self.DMG]
+            print(f"{item_name}: wasn't found")
+            return "0x1"
 
-    def ref_char_bonus(self):
-        self.Basis["Hp"] = self.constbas[0] + self.equipment.EqipBonus["HP"]
-        self.Basis["Mp"] = self.constbas[1] + self.equipment.EqipBonus["MP"]
-        self.Basis["Sm"] = self.constbas[2] + self.equipment.EqipBonus["SM"]
-        self.Basis["Df"] = self.constbas[3] + self.equipment.EqipBonus["DF"]
-        self.Basis["Dmg"] = self.constbas[4] + self.equipment.EqipBonus["DMG"]
-        self.inventory.MaxInventoryWeightSize = 14 + self.equipment.EqipBonus["Weight"]
-        self.equipment.MaxEqipWeightSize = 12 + self.equipment.EqipBonus["Weight"]
 
-    def ref_char(self):
-        if self.Hp > self.Basis["Hp"]:
-            self.Hp = self.Basis["Hp"]
-        if self.Mp > self.Basis["Mp"]:
-            self.Mp = self.Basis["Mp"]
-        if self.Sm > self.Basis["Sm"]:
-            self.Sm = self.Basis["Sm"]
+    def read_inventory(self):
+        print(f"Инвентарь: {self.inventory}")
+        print(f"максимальный переносимый вес: {self.inventory_size}")
+        print (f"Текущий переносимый вес: {self.inventory_weight}")
+        print(f"Стоимость инвентаря: {self.inventory_cost}")
+
+        return self.inventory, self.inventory_size, self.inventory_weight
+
+    def del_item(self, item_name):
+        if item_name in self.inventory:
+            self.add_item(item_name, -self.inventory[item_name]["количество"])
+        else:
+            print (f"{item_name}: wasn't found in the inventory")
+
+class Equipment:
+    def __init__(self):
+        self.equipment_weight = 0
+        self.equipment = {}
+        self.equipment_size = _config["equipment_size"]
+        self.max_eqip = _config["max_eqip"]
+        self.bonus = {"здоровье": 0, "мана": 0, "выносливость": 0, "защита": 0, "урон": 0, "вместимость": 0}
+
+
+    def __auto_set_bonus(self, item_name, item_amount):
+        bonus_name = JFO.get_object(None, item_name, "all")
+        del bonus_name["цена"],bonus_name["вес"]
+
+        item = [i for i in bonus_name]
+        item = item[0]
+        bonus = bonus_name[item]
+
+        self.bonus[item] += bonus*item_amount
+
+
+    def wear_equipment(self, item_name, item_amount):
+        if item_name in _wears:
+            weight = self.equipment_weight + item_amount * JFO.get_object(None, item_name, "вес")
+            if weight <= self.equipment_size:
+
+                try:
+                    amount = -1 * self.equipment[item_name]["количество"]
+                    if amount <= item_amount and self.max_eqip != 0:
+                        self.equipment[item_name] = {
+                            "количество": self.equipment[item_name]["количество"] + item_amount,
+                            "вес": round((self.equipment[item_name]["количество"] + item_amount) * JFO.get_object(None, item_name, "вес"), 2),
+                            "цена": JFO.get_object(None, item_name, "цена")
+                        }
+                        self.max_eqip -= item_amount
+                        self.equipment_weight = round(weight, 2)
+                        print (f"Update:{item_name}")
+                    else:
+                        print(f"Error: {item_amount} < {amount} or max_eqip = 0")
+
+                except KeyError:
+                    if item_amount < 0 or self.max_eqip == 0:
+                        print(f"{item_amount}: <= 0 or max_eqip: = 0")
+                    else:
+                        self.equipment[item_name] = {
+                            "количество": item_amount,
+                            "вес": round(JFO.get_object(None, item_name, "вес") * item_amount, 2),
+                            "цена": JFO.get_object(None, item_name, "цена")
+                        }
+                        self.max_eqip -= item_amount
+                        self.equipment_weight = round(weight, 2)
+                        print(f"{item_name}: Wearing")
+
+                finally:
+                    try:
+                        if self.equipment[item_name]["количество"] <= 0:
+                            del self.equipment[item_name]
+                            print(f"Del:{item_name}")
+                            self.__auto_set_bonus(item_name, item_amount)
+                            return "0x0"
+                        else:
+                            self.__auto_set_bonus(item_name, item_amount)
+                            return "0x0"
+                    except KeyError:
+                        print(f"{item_name}: wasn't found in the equipments")
+                        return "0x1"
+            else:
+                print("You need more free weight or equipment = 0")
+                return "0x1"
+        else:
+            print(f"{item_name}: wasn't found")
+            return "0x1"
+
+
+    def read_equipments(self):
+        print(f"Снаряжение: {self.equipment}")
+        print(f"максимальный переносимый вес: {self.equipment_size}")
+        print (f"Текущий переносимый вес: {self.equipment_weight}")
+        print (f"Количество оставшихся слотов под снаряжение: {self.max_eqip}")
+
+    def del_equipments(self, item_name):
+        if item_name in self.equipment:
+            self.wear_equipment(item_name, -self.equipment[item_name]["количество"])
+        else:
+            print (f"{item_name}: wasn't found in the equipments")
+
+class Storage(Inventory, Equipment):
+    def __init__(self):
+        Inventory.__init__(self)
+        Equipment.__init__(self)
+
+    def replace(self, item_name, item_amount, place):
+
+        if place == "Inventory":
+            if item_name in self.equipment:
+                if item_amount <= self.equipment[item_name]["количество"]:
+                    res = player.add_item(item_name, item_amount)
+                    print(res)
+                    if res == "0x0":
+                        player.wear_equipment(item_name, -item_amount)
+                    else:
+                        print (f"Error: {item_name} failed to replace")
+
+        elif place == "Equipment":
+            if item_name in self.inventory and item_name in _wears:
+                if item_amount <= self.inventory[item_name]["количество"]:
+                    res = self.add_item(item_name, item_amount)
+                    if res == "0x0":
+                        self.add_item(item_name, -item_amount)
+                    else:
+                        print(f"Error: {item_name} failed to replace")
+                else:
+                    print(f"Error: {item_amount} inappropriate quantity")
+            else:
+                print(f"Error: {item_name} is not equipment")
+
+        else:
+            print(f"Error: {place} wasn't found")
+
+
+class Player(Storage, Capability):
+    def __init__(self, name, race, clas, prof, spec, rel):
+        Storage.__init__(self)
+        Capability.__init__(self, name, race, clas, prof, spec, rel)
+        self.live = True
+        self.success = False
+        self.count = 0
+
 
     def sell(self, item_name, item_amount):
-        if item_name in self.storage.inventory and 1 <= item_amount <= self.storage.inventory[item_name]["amount"]:
+        if item_name in self.inventory and 1 <= item_amount <= self.inventory[item_name]["количество"]:
             while True:
                 try:
-                    if "Торговля" in self.skills.Skills:
-                        res = formuls.Sell(self.storage.inventory[item_name]["cost"], self.storage.inventory["Деньги"]["amount"], item_amount, self.skills.Skills["Торговля"], constants.SkillsBonus["Торговля"]["Продажа"])
-                        if res == "Error":
-                            pass
-                        else:
-                            res = res - self.storage.inventory["Деньги"]["amount"]
-                            self.storage.add_item("/Add Item", "Деньги", res)
-                            self.storage.add_item("/Add Item", item_name, -item_amount)
+                    if "торговля" in self.skills:
+                        res = formulas.Sell(self.inventory[item_name]["цена"], self.inventory["деньги"]["количество"], item_amount, self.skills["торговля"], JFC.get_constants("торговля","продажа"))
+                        if res is not None:
+                            res = res - self.inventory["деньги"]["количество"]
+                            self.add_item("деньги", res)
+                            self.add_item(item_name, -item_amount)
                     else:
-                        res = self.storage.inventory["Деньги"]["amount"] + items.All_Items[item_name]["cost"] * item_amount
-                        if res == "Error":
-                            pass
-                        else:
-                            res = res - self.storage.inventory["Деньги"]["amount"]
-                            self.storage.add_item("/Add Item", "Деньги", res)
-                            self.storage.add_item("/Add Item", item_name, -item_amount)
+                        res = self.inventory["деньги"]["количество"] + JFO.get_object(None, item_name, "цена")* item_amount
+                        if res is not None:
+                            res = res - self.inventory["деньги"]["количество"]
+                            self.add_item("деньги", res)
+                            self.add_item(item_name, -item_amount)
                     break
                 except KeyError:
-                    self.storage.add_item("/Add Item", "Деньги", 1)
+                    self.add_item("деньги", 1)
         else:
-            print("Вы пытаетесь продать предмет, которого у вас нету или вы продаёте предмет в большем/меньшем колличестве, в котором он у вас есть!")
+            print("Вы пытаетесь продать предмет, которого у вас нету или вы продаёте предмет в большем/меньшем колличестве, в котором он у вас есть в действительности!")
 
-    def buy(self, item_name, item_amount):
-        if item_name in items.Objects and item_amount >= 1:
-            try:
-                if "Торговля" in self.skills.Skills:
-                    res = formuls.Buy(self.storage.inventory[item_name]["cost"], self.storage.inventory["Деньги"]["amount"], item_amount, self.skills.Skills["Торговля"], constants.SkillsBonus["Торговля"]["Покупка"])
-                    weight = self.storage.inventory[item_name]["weight"] + items.All_Items[item_name]["weight"] * item_amount
-                    if res == "Error" or weight > self.storage.inventory_size:
-                        pass
-                    elif res >= 0:
-                        res = res - self.storage.inventory["Деньги"]["amount"]
-                        self.storage.add_item("/Add Item", "Деньги", res)
-                        self.storage.add_item("/Add Item", item_name, item_amount)
+    def buy(self,item_name, item_amount):
+        if item_name in _items and item_amount >= 1:
+            weight = self.inventory_weight + self.inventory[item_name]["вес"] + JFO.get_object (None,item_name, "вес") * item_amount
+            if weight <= self.inventory_weight:
+                try:
+                    if "торговля" in self.skills:
+                        res = formulas.Buy (self.inventory[item_name]["цена"],self.inventory["деньги"]["количество"], item_amount,self.skills["торговля"],JFC.get_constants ("торговля","покупка"))
+                        if res >= 0:
+                            if weight <= self.inventory_weight:
+                                res = res - self.inventory["деньги"]["количество"]
+                                self.add_item("деньги",res)
+                                self.add_item(item_name, item_amount)
+                            else:
+                                print (f"Вам не хватает места: [{weight - self.inventory_weight}Кг]")
+                        else:
+                            print (f"Вам не хватает денег: [{-1 * res}]")
                     else:
-                        print(f"Вам не хватает денег: [{-1*res}]")
-                else:
-                    res = self.storage.inventory["Деньги"]["amount"] - self.storage.inventory[item_name]["cost"]
-                    if res >= 0:
-                        res = res - self.storage.inventory["Деньги"]["amount"]
-                        self.storage.add_item("/Add Item", "Деньги", res)
-                        self.storage.add_item("/Add Item", item_name, item_amount)
-                    else:
-                        print(f"Вам не хватает денег: [{-1*res}]")
-            except KeyError:
-                print("У вас нету денег!")
+                        res = self.inventory["деньги"]["вес"] - self.inventory[item_name]["цена"]
+                        if res >= 0:
+                            if weight <= self.inventory_weight:
+                                res = res - self.inventory["деньги"]["количество"]
+                                self.add_item ("деньги",res)
+                                self.add_item (item_name,item_amount)
+                            else:
+                                print (f"Вам не хватает места: [{weight - self.inventory_weight}Кг]")
+                        else:
+                            print (f"Вам не хватает денег: [{-1 * res}]")
+                except KeyError:
+                    print ("У вас нету денег!")
+            else:
+                print(f"Вам не хватает места: [{weight-self.inventory_weight}Кг]")
         else:
             print("Вы пытаетесь купить предмет, которого не существует или вы вписали отрицательное значение!")
 
-    def get_char(self):
-        print(f"HP:{self.Hp} | MP:{self.Mp} | SM:{self.Sm} | DF:{self.Df} | DMG:{self.DMG}")
+    def craft(self, item_name, item_amount):
+        if item_name in _items and item_amount >= 1:
+            try:
+                if "мудрость" in self.skills:
+                    res = formulas.Сommon(JFC.get_constants("skills","изобретательность","бонус"), self.skills["изобретательность"]+1)
+                else:
+                    res = formulas.Сommon(JFC.get_constants("skills","изобретательность","бонус"), self.skills["изобретательность"])
+            except KeyError:
+                res = formulas.Сommon(JFC.get_constants("skills","изобретательность","бонус"), 0)
+            finally:
+                if res is True:
+                    try:
+                        weight = self.inventory_weight + self.inventory[item_name]["вес"] + JFO.get_object(None, item_name, "вес") * item_amount
+                        if weight <= self.inventory_weight:
+                            self.add_item(item_name,item_amount)
+                        else:
+                            print(f"Вам не хватает места: [{weight - self.inventory_weight}Кг]")
+                    except KeyError:
+                        print(f"{item_name} wasn't found in Objects_config.json")
+                else:
+                    print("Вместо предмета у вас вышел лишь металалом")
+                    try:
+                        weight = self.inventory_weight + JFO.get_object("materials", "металалом", "вес") * randint(1, 6)
+                        if weight <= self.inventory_weight:
+                            self.add_item(item_name,item_amount)
+                        else:
+                            print(f"Вам не хватает места: [{weight - self.inventory_weight}Кг] для металлолома")
+                    except KeyError:
+                        print("металалом: wasn't found in Objects_config.json")
+        else:
+            print("Вы где-то допустили ошибку!")
+
 
     def learn(self, learn_name):
-        if learn_name in constants.Abilities:
-            if "Мудрость" in self.skills.Skills:
-                res = formuls.Learn(constants.Skills["Мудрость"], self.clas, self.skills.Skills["Мудрость"], constants.SkillsBonus["Мудрость"])
-                if res == "Успеx":
-                    self.abilities.add_abilitie(learn_name)
+        if learn_name in _abilities:
+            if "мудрость" in self.skills:
+                res = formulas.Learn(JFC.get_constants("skills","мудрость", "бонус"), JFC.get_constants("class_bonus", self.info["класс"], "мудрость"), self.skills["мудрость"], self.info["класс"])
+                if res is True:
+                    self.add_abilities(learn_name)
                     print(f"Вам удалось изучить: [{learn_name}]")
                 else:
                     print(f"Вам не удалось изучить: [{learn_name}]")
             else:
-                res = formuls.Learn(constants.Skills["Мудрость"], self.clas, 0, 0)
-                if res == "Успеx":
-                    self.abilities.add_abilitie(learn_name)
+                res = formulas.Learn(JFC.get_constants("skills","мудрость", "бонус"), JFC.get_constants("class_bonus", self.info["класс"], "мудрость"), 1, self.info["класс"])
+                if res is True:
+                    self.add_abilities(learn_name)
                     print(f"Вам удалось изучить: [{learn_name}]")
                 else:
                     print(f"Вам не удалось изучить: [{learn_name}]")
 
     def block(self, damage):
-        if 0<= damage <= 999:
-            if "Сила" in self.skills.Skills:
-                res = formuls.Сommon_Success(constants.Skills["Сила"], self.skills.Skills["Сила"], constants.SkillsBonus["Сила"]["Блок"])
-                if res == "Успеx":
+        if damage >= 0:
+            try:
+                res = formulas.Сommon(JFC.get_constants("skills", "сила", "бонус"), self.skills["сила"])
+            except KeyError:
+                res = formulas.Сommon (JFC.get_constants("skills","сила","бонус"), 0)
+            finally:
+                if res is True:
                     print("Урон не получен")
                 else:
-                    self.Hp -= damage
-                    print(f"HP:[{self.Hp}]")
-            else:
-                res = formuls.Сommon_Success(constants.Skills["Сила"], 0, 0)
-                if res == "Успех":
-                    print("Урон не получен")
-                else:
-                    self.Hp -= damage
-                    print(f"HP:[{self.Hp}]")
+                    damage = damage - self.char["защита"]
+                    if damage > 0:
+                        hp = self.char["здоровье"] - damage
+                        if hp > 0:
+                            self.char.update(здоровье=hp)
+                        else:
+                            self.char.update(здоровье=hp)
+                            self.live = False
+                            print("Вы умерли, так как получили критический урон")
+                    else:
+                        print("Урон не получен")
         else:
-            print("Урон не может быть отрицательным или выше 999")
-
-    def craft(self, item_name, item_amount):
-        if item_name in items.Objects and 1 <= item_amount <= 8:
-            if "Изобретательность" in self.skills.Skills:
-                res = formuls.Сommon_Success(constants.Skills["Изобретательность"], self.skills.Skills["Изобретательность"], constants.SkillsBonus["Изобретательность"])
-                if res == "Успеx":
-                    self.storage.add_item("/Add Item", item_name, item_amount)
-                else:
-                    print("Вместо предметов у вас вышел лишь металалом")
-                    self.storage.add_item("/Add Item", "Металалом", randint(1, 6))
-            else:
-                res = formuls.Сommon_Success(constants.Skills["Изобретательность"], 0, 0)
-                if res == "Успеx":
-                    self.storage.add_item("/Add Item", item_name, item_amount)
-                else:
-                    print("Вместо предметов у вас вышел лишь металалом")
-                    self.storage.add_item("/Add Item", "Металалом", randint(1, 6))
-
-        else:
-            print("Вы где-то допустили ошибку!")
+            print("Урон не может быть отрицательным!")
 
     def dodge(self, damage):
-        if 0<= damage <= 999:
-            if "Ловкость" in self.skills.Skills:
-                res = formuls.Сommon_Success(constants.Skills["Ловкость"], self.skills.Skills["Ловкость"], constants.SkillsBonus["Ловкость"])
-                if res == "Успеx":
+        if damage >= 0:
+            try:
+                res = formulas.Сommon(JFC.get_constants("skills", "выносливость", "бонус"),self.skills["выносливость"])
+            except KeyError:
+                res = formulas.Сommon (JFC.get_constants ("skills","выносливость","бонус"), 0)
+            finally:
+                if res is True:
                     print("Вы смогли увернуться")
                 else:
-                    self.hp = damage
-                    print(f"HP:[{self.hp}]")
-            else:
-                res = formuls.Сommon_Success(constants.Skills["Ловкость"], 0, 0)
-                if res == "Успех":
-                    print("Вы смогли увернуться")
-                else:
-                    self.hp = damage
-                    print(f"HP:[{self.hp}]")
+                    damage = damage - self.char["защита"]
+                    if damage > 0:
+                        hp = self.char["здоровье"] - damage
+                        if hp > 0:
+                            self.char.update (здоровье=hp)
+                        else:
+                            self.char.update (здоровье=hp)
+                            self.live = False
+                    else:
+                        print ("Вы не смогли увернуться, но благодаря защите, урон был нивелирован")
         else:
-            print("Урон не может быть отрицательным или выше 999")
+            print("Урон не может быть отрицательным!")
 
-    def steal(self, item_name, item_amount):
-        if 1 <= item_amount <= 640:
-            if "Воровство" in self.skills.Skills:
-                res = formuls.Сommon_Success(constants.Skills["Воровство"], self.skills.Skills["Воровство"], constants.SkillsBonus["Воровство"])
-                if res == "Успеx":
-                    self.storage.add_item("/Add Item", item_name, item_amount)
-                else:
-                    print("Вам не удалось украсть предмет")
-            else:
-                res = formuls.Сommon_Success(constants.Skills["Воровство"], 0, 0)
-                if res == "Успех":
-                    self.storage.add_item("/Add Item", item_name, item_amount)
-                else:
-                    print("Вам не удалось украсть предмет")
-        else:
-            print("Вы либо пытались украсть отрицательное число предметов, либо слишком много за раз!")
-
-    def hack(self, item_name):
-        if item_name in items.Objects:
-            if "Взлом" in self.skills.Skills:
-                res = formuls.Сommon_Success(constants.Skills["Внимательность"], self.skills.Skills["Взлом"], constants.SkillsBonus["Взлом"])
-                if res == "Успеx":
-                    print(f"Вам удалось взломать: [{item_name}]")
-                else:
-                    print("Вам не удалось взломать объект")
-            else:
-                res = formuls.Сommon_Success(constants.Skills["Внимательность"], 0, 0)
-                if res == "Успех":
-                    print(f"Вам удалось взломать: [{item_name}]")
-                else:
-                    print("Вам не удалось взломать объект")
-        else:
-            print("Вы не можете взломать то, что логически не поддаётся взлому ")
-
-    def check(self):
-        if "Внимательность" in self.skills.Skills:
-            res = formuls.Сommon_Success(constants.Skills["Внимательность"], self.skills.Skills["Внимательность"], constants.SkillsBonus["Внимательность"])
-            if res == "Успеx":
-                print("Вы что-то заметили")
-            else:
-                print("Вы ничего не обнаружили")
-        else:
-            res = formuls.Сommon_Success(constants.Skills["Внимательность"], 0, 0)
-            if res == "Успех":
-                print("Вы что-то заметили")
-            else:
-                print("Вы ничего не обнаружили")
-
-    def proof(self):
-        if "Социальность" in self.skills.Skills:
-            res = formuls.Сommon_Success(constants.Skills["Социальность"], self.skills.Skills["Социальность"], constants.SkillsBonus["Социальность"])
-            if res == "Успеx":
+    def proof(self, hindrance):
+        try:
+            self.success = formulas.Сommon(JFC.get_constants("skills","социальность","бонус")+self.count, self.skills["социальность"], hindrance)
+        except KeyError:
+            self.success = formulas.Сommon(JFC.get_constants ("skills","социальность","бонус")+self.count, hindrance)
+        finally:
+            if self.success is True:
+                self.count = 0
                 print("Вам доверяют")
             else:
+                self.count += 2.5
                 print("Вы вызываете подозрение")
-        else:
-            res = formuls.Сommon_Success(constants.Skills["Социальность"], 0, 0)
-            if res == "Успех":
-                print("Вам доверяют")
+
+    def hack(self, hindrance=0):
+        try:
+            if "мудрость" or "адаптивность" in self.skills:
+                self.success = formulas.Сommon(JFC.get_constants("skills","взлом","бонус")+self.count, hindrance, self.skills["взлом"]+1)
             else:
-                print("Вы вызываете подозрение")
+                self.success = formulas.Сommon(JFC.get_constants("skills","взлом","бонус")+self.count, hindrance, self.skills["взлом"])
+        except KeyError:
+            if "мудрость" or "адаптивность" in self.skills:
+                self.success = formulas.Сommon(JFC.get_constants("skills","взлом","бонус")+self.count, hindrance, _config["hack"])
+            else:
+                self.success = formulas.Сommon(JFC.get_constants ("skills","взлом","бонус")+self.count, hindrance,)
+        finally:
+            if self.success is True:
+                self.count = 0
+                print (f"Вам удалось взломать объект")
+            else:
+                self.count += 2.5
+                print (f"Вам не удалось взломать объект")
 
-    def get_player(self):
-        pass
+    def check(self, hindrance):
+        try:
+            if "кошачий глаз" in self.skills:
+                self.success = formulas.Сommon(JFC.get_constants("skills","внимательность","бонус")+self.count, hindrance, self.skills["внимательность"]+1)
+            else:
+                self.success = formulas.Сommon(JFC.get_constants("skills","внимательность","бонус")+self.count, hindrance, self.skills["внимательность"])
+        except KeyError:
+            if "кошачий глаз" in self.skills:
+                self.success = formulas.Сommon(JFC.get_constants("skills","внимательность","бонус")+self.count, hindrance, 1.5)
+            else:
+                self.success = formulas.Сommon(JFC.get_constants("skills","внимательность","бонус")+self.count, hindrance)
+        finally:
+            if self.success is True:
+                self.count = 0
+                print("Вы что-то подозреваете")
+            else:
+                self.count += 2.5
+                print("Вы ничего не подозреваете")
 
-
-
+    def steal(self, item_name, item_amount, hindrance=0):
+        if item_name in _items:
+            try:
+                self.success = formulas.Сommon(JFC.get_constants("skills","воровство","бонус") + self.count, self.skills["воровство"], hindrance)
+            except KeyError:
+                self.success = formulas.Сommon (JFC.get_constants ("skills","воровство","бонус") + self.count, hindrance)
+            finally:
+                if self.success is True:
+                    self.count = 0
+                    self.add_item(item_name, item_amount)
+                else:
+                    self.count += 2.5
+                    print ("Вам не удалось украсть предмет")
+        else:
+            print (f"{item_name}: wasn't found in Objects_config.json")
 
 
 """
-player2 = Player("User-Test", "Человек", "Воин", "Паладин", "Авангард")
-player2.skills.set_skills()
-player2.skills.ref_skills()
-player2.set_char()
-player2.storage.add_item("/Add Item", "Снежные Сапоги", 5)
-player2.storage.add_item("/Add Item", "Колчан", 5)
-player2.storage.get_inventory()
-player2.storage.add_item("/Add Equip", "Снежные Сапоги", 5)
-player2.storage.add_item("/Add Equip", "Колчан", 5)
-player2.sell("Снежные Сапоги", 5)
-player2.storage.get_inventory()
-player2.sell("Деньги", 2461)
-player2.storage.get_inventory()
+player = Player("User-Test", "человек", "воин", "наёмник", "смешенный", "сихритизм")
+player.set_skills()
+player.set_char()
 """

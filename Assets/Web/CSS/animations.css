@@ -1,0 +1,21 @@
+.item_nav, .item_nav::after, .card, .image, .information-block, .card-foundation-content{
+    transition: all ease-out 0.5s;
+}
+
+.item_nav:hover, .item_nav:hover::after{color: #EB621D;}
+.item_nav:hover::after{background-color: #EB621D;}
+
+.card:hover{box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.15);}
+.card:hover .image{transform: scale(115%);}
+
+.information-block:hover{filter:brightness(100%);}
+
+.information-block:hover .image,
+.card-foundation:hover .image{transform: scale(105%);}
+
+.information-block:hover .img__opacity,
+.card-foundation:hover .img__opacity{filter:brightness(25%);}
+
+
+.card-foundation:hover .card-foundation-content{filter:brightness(100%);}
+

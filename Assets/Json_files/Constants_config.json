@@ -1,0 +1,754 @@
+{
+  "constants": {
+    "characteristics": [
+      {
+        "element_name": "здоровье",
+        "element_bonus": {
+          "максимальное": 500,
+          "минимальное": 100
+        }
+      },
+      {
+        "element_name": "мана",
+        "element_bonus": {
+          "максимальное": 640,
+          "минимальное": 40
+        }
+      },
+      {
+        "element_name": "выносливость",
+        "element_bonus": {
+          "максимальное": 540,
+          "минимальное": 60
+        }
+      },
+      {
+        "element_name": "защита",
+        "element_bonus": {
+          "максимальное": 86,
+          "минимальное": 4
+        }
+      },
+      {
+        "element_name": "урон",
+        "element_bonus": {
+          "максимальное": 164,
+          "минимальное": 20
+        }
+      }
+    ],
+    "races": [
+      {
+        "element_name": "человек",
+        "element_bonus": {
+          "бонус": 2,
+          "мудрость": 1
+        }
+      },
+      {
+        "element_name": "зверолюд",
+        "element_bonus": {
+          "бонус": 2.5,
+          "ловкость": 1,
+          "внимательность": 1,
+          "сила": 1
+        }
+      },
+      {
+        "element_name": "демон",
+        "element_bonus": {
+          "бонус": 3,
+          "сила": 1,
+          "манипулирование": 1,
+          "обман": 1
+        }
+      },
+      {
+        "element_name": "эльф",
+        "element_bonus": {
+          "бонус": 2.2,
+          "мудрость": 1,
+          "меткость": 1,
+          "изобретательность": 1
+        }
+      },
+      {
+        "element_name": "клойд",
+        "element_bonus": {
+          "бонус": 2.7,
+          "сила": 1,
+          "телосложение": 1
+        }
+      },
+      {
+        "element_name": "дварф",
+        "element_bonus": {
+          "бонус": 2.3,
+          "телосложение": 1,
+          "сила": 1,
+          "изобретательность": 1
+        }
+      },
+      {
+        "element_name": "фауст",
+        "element_bonus": {
+          "бонус": 2.1,
+          "оккультизм": 1,
+          "правосудие": 1,
+          "поглощение": 1
+        }
+      },
+      {
+        "element_name": "грофт",
+        "element_bonus": {
+          "бонус": 2.4,
+          "торговля": 1,
+          "манипулирование": 1
+        }
+      },
+      {
+        "element_name": "триан",
+        "element_bonus": {
+          "бонус": 1.5,
+          "благословение": 1,
+          "воля": 1,
+          "психика": 1
+        }
+      },
+      {
+        "element_name": "сельт",
+        "element_bonus": {
+          "бонус": 2.8,
+          "ресурсы": 1,
+          "амфибицизм": 1,
+          "езда верхом": 1
+        }
+      },
+      {
+        "element_name": "айсмир",
+        "element_bonus": {
+          "бонус": 1.8,
+          "травничество": 1,
+          "мастерство": 1
+        }
+      },
+      {
+        "element_name": "котлиты",
+        "element_bonus": {
+          "бонус": 1.9,
+          "очарование": 1,
+          "воровство": 1,
+          "скрытность": 1
+        }
+      }
+    ],
+    "class": [
+      {
+        "element_name": "маг",
+        "element_bonus": {
+          "бонус": 2.5
+        }
+      },
+      {
+        "element_name": "воин",
+        "element_bonus": {
+          "бонус": 3
+        }
+      },
+      {
+        "element_name": "никто",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "стрелок",
+        "element_bonus": {
+          "бонус": 2
+        }
+      }
+    ],
+    "class_bonus": [
+      {
+        "element_name": "никто",
+        "element_bonus": {
+          "мудрость": 25
+        }
+      },
+      {
+        "element_name": "маг",
+        "element_bonus": {
+          "мудрость": 5
+        }
+      },
+      {
+        "element_name": "воин",
+        "element_bonus": {
+          "мудрость": 0
+        }
+      }
+    ],
+    "profs": [
+      {
+        "element_name": "чародей",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "жрец",
+        "element_bonus": {
+          "бонус": 5
+        }
+      },
+      {
+        "element_name": "иллюзионист",
+        "element_bonus": {
+          "бонус": 3
+        }
+      },
+      {
+        "element_name": "паладин",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "варвар",
+        "element_bonus": {
+          "бонус": 3
+        }
+      },
+      {
+        "element_name": "наёмник",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "снайпер",
+        "element_bonus": {
+          "бонус": 2
+        }
+      },
+      {
+        "element_name": "бомбардир",
+        "element_bonus": {
+          "бонус": 3
+        }
+      },
+      {
+        "element_name": "лукфит",
+        "element_bonus": {
+          "бонус": 1
+        }
+      },
+      {
+        "element_name": "падший",
+        "element_bonus": {
+          "бонус": 5
+        }
+      }
+    ],
+    "specs": [
+      {
+        "element_name": "авангард",
+        "element_bonus": {
+          "бонус": 8
+        }
+      },
+      {
+        "element_name": "поддержка",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "смешенный",
+        "element_bonus": {
+          "бонус": 6
+        }
+      }
+    ],
+    "religions":[
+      {
+        "element_name": "сихритизм",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "лейксицизм",
+        "element_bonus": {
+          "бонус": 0
+      }
+      },
+      {
+        "element_name": "марифизм",
+        "element_bonus": {
+          "бонус": 0
+      }
+      },
+      {
+        "element_name": "силитий",
+        "element_bonus": {
+          "бонус": 0
+      }
+      },
+      {
+        "element_name": "вольфизм",
+        "element_bonus": {
+          "бонус": 0
+      }
+      },
+      {
+        "element_name": "гротизм",
+        "element_bonus": {
+          "бонус": 0
+      }
+      }
+    ],
+    "ranks":[
+      {
+        "element_name": "X",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "E",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "D",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "C",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "B",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "A",
+        "element_bonus": {
+          "бонус": 0
+        }
+      }
+    ],
+    "skills": [
+      {
+        "element_name": "воровство",
+        "element_bonus": {
+          "бонус": 20
+        }
+      },
+      {
+        "element_name": "взлом",
+        "element_bonus": {
+          "бонус": 14
+        }
+      },
+      {
+        "element_name": "обман",
+        "element_bonus": {
+          "бонус": 35
+        }
+      },
+      {
+        "element_name": "запугивание",
+        "element_bonus": {
+          "бонус": 47
+        }
+      },
+      {
+        "element_name": "социальность",
+        "element_bonus": {
+          "бонус": 45
+        }
+      },
+      {
+        "element_name": "мастерство",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "мудрость",
+        "element_bonus": {
+          "бонус": 15
+        }
+      },
+      {
+        "element_name": "телосложение",
+        "element_bonus": {
+          "бонус": 5
+        }
+      },
+      {
+        "element_name": "внимательность",
+        "element_bonus": {
+          "бонус": 3
+        }
+      },
+      {
+        "element_name": "изобретательность",
+        "element_bonus": {
+          "бонус": 28
+        }
+      },
+      {
+        "element_name": "сила",
+        "element_bonus": {
+          "бонус": 25
+        }
+      },
+      {
+        "element_name": "ловкость",
+        "element_bonus": {
+          "бонус": 5
+        }
+      },
+      {
+        "element_name": "меткость",
+        "element_bonus": {
+          "бонус": 65
+        }
+      },
+      {
+        "element_name": "манипулирование",
+        "element_bonus": {
+          "бонус": 8
+        }
+      },
+      {
+        "element_name": "воля",
+        "element_bonus": {
+          "бонус": 35
+        }
+      },
+      {
+        "element_name": "скрытность",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "травничество",
+        "element_bonus": {
+          "бонус": 2
+        }
+      },
+      {
+        "element_name": "ресурсы",
+        "element_bonus": {
+          "бонус": 55
+        }
+      },
+      {
+        "element_name": "езда верхом",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "разведка",
+        "element_bonus": {
+          "бонус": 28
+        }
+      },
+      {
+        "element_name": "амфибицизм",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "кошачий глаз",
+        "element_bonus": {
+          "бонус": 3
+        }
+      },
+      {
+        "element_name": "адаптивность",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "психика",
+        "element_bonus": {
+          "бонус": 23
+        }
+      },
+      {
+        "element_name": "торговля",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "оккультизм",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "благословение",
+        "element_bonus": {
+          "бонус": 2
+        }
+      },
+      {
+        "element_name": "правосудие",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "первая помощь",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "очарование",
+        "element_bonus": {
+          "бонус": 25
+        }
+      },
+      {
+        "element_name": "крепкий желудок",
+        "element_bonus": {
+          "бонус": 15
+        }
+      },
+      {
+        "element_name": "поглощение",
+        "element_bonus": {
+          "бонус": 0
+        }
+      }
+    ],
+    "skills_bonus": [
+      {
+        "element_name": "торговля",
+        "element_bonus": {
+          "покупка": 7,
+          "продажа": 10
+        }
+      },
+      {
+        "element_name": "сила",
+        "element_bonus": {
+          "вес": 4,
+          "блок": 5
+        }
+      },
+      {
+        "element_name": "оккультизм",
+        "element_bonus": {
+          "урон": 5,
+          "потребление": 1
+        }
+      },
+      {
+        "element_name": "правосудие",
+        "element_bonus": {
+          "урон": 15,
+          "защита": 8
+        }
+      },
+      {
+        "element_name": "первая помощь",
+        "element_bonus": {
+          "снижение": 12,
+          "восстановление": 4
+        }
+      },
+      {
+        "element_name": "воровство",
+        "element_bonus": {
+          "бонус": 8
+        }
+      },
+      {
+        "element_name": "поглощение",
+        "element_bonus": {
+          "бонус": 0.002
+        }
+      },
+      {
+        "element_name": "крепкий желудок",
+        "element_bonus": {
+          "бонус": 2
+        }
+      },
+      {
+        "element_name": "очарование",
+        "element_bonus": {
+          "бонус": 8
+        }
+      },
+      {
+        "element_name": "благословение",
+        "element_bonus": {
+          "бонус": 5
+        }
+      },
+      {
+        "element_name": "психика",
+        "element_bonus": {
+          "бонус": 8
+        }
+      },
+      {
+        "element_name": "адаптивность",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "кошачий глаз",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "амфибицизм",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "разведка",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "езда верхом",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "ресурсы",
+        "element_bonus": {
+          "бонус": 3
+        }
+      },
+      {
+        "element_name": "травничество",
+        "element_bonus": {
+          "бонус": 15
+        }
+      },
+      {
+        "element_name": "скрытность",
+        "element_bonus": {
+          "бонус": 6
+        }
+      },
+      {
+        "element_name": "воля",
+        "element_bonus": {
+          "бонус": 9
+        }
+      },
+      {
+        "element_name": "манипулирование",
+        "element_bonus": {
+          "бонус": 5
+        }
+      },
+      {
+        "element_name": "меткость",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "ловкость",
+        "element_bonus": {
+          "бонус": 5
+        }
+      },
+      {
+        "element_name": "изобретательность",
+        "element_bonus": {
+          "бонус": 6
+        }
+      },
+      {
+        "element_name": "внимательность",
+        "element_bonus": {
+          "бонус": 3
+        }
+      },
+      {
+        "element_name": "телосложение",
+        "element_bonus": {
+          "бонус": 8
+        }
+      },
+      {
+        "element_name": "мудрость",
+        "element_bonus": {
+          "бонус": 5
+        }
+      },
+      {
+        "element_name": "мастерство",
+        "element_bonus": {
+          "бонус": 0
+        }
+      },
+      {
+        "element_name": "социальность",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "запугивание",
+        "element_bonus": {
+          "бонус": 4
+        }
+      },
+      {
+        "element_name": "обман",
+        "element_bonus": {
+          "бонус": 6
+        }
+      },
+      {
+        "element_name": "взлом",
+        "element_bonus": {
+          "бонус": 5
+        }
+      }
+    ],
+    "abilities": [
+      {
+        "element_name": "раскат молнии",
+        "element_bonus": {
+          "выносливость": 45,
+          "урон": 64,
+          "время": 1,
+          "откат": 8
+        }
+      }
+    ]
+  }
+}

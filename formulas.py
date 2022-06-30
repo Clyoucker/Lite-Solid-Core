@@ -31,7 +31,6 @@ def Сommon(constant, hindrance=0, skill_bonus_value=None):
         skill_bonus_value = 1
 
     success = Chance(int((constant * skill_bonus_value) - hindrance))
-    print(int((constant * skill_bonus_value) - hindrance))
     return success
 
 def Learn(base_skill_bonus, class_bonus, skill_bonus_value, class_name):
