@@ -1,0 +1,581 @@
+{
+  "base": {
+    "characteristics": [
+      {
+        "title": "health",
+        "attributes": {
+          "max": 500,
+          "min": 100
+        }
+      },
+      {
+        "title": "mana",
+        "attributes": {
+          "max": 640,
+          "min": 120
+        }
+      },
+      {
+        "title": "stamina",
+        "attributes": {
+          "max": 540,
+          "min": 100
+        }
+      },
+      {
+        "title": "protection",
+        "attributes": {
+          "max": 86,
+          "min": 4
+        }
+      },
+      {
+        "title": "damage",
+        "attributes": {
+          "max": 164,
+          "min": 22
+        }
+      }
+    ],
+    "races": [
+      {
+        "title": "human",
+        "attributes": {
+          "bonus": 2,
+          "wisdom": 1
+        }
+      },
+      {
+        "title": "beastman",
+        "attributes": {
+          "bonus": 2.5,
+          "dexterity": 1,
+          "attentiveness": 1,
+          "power": 1
+        }
+      },
+      {
+        "title": "demon",
+        "attributes": {
+          "bonus": 3,
+          "power": 1,
+          "manipulation": 1,
+          "deception": 1
+        }
+      },
+      {
+        "title": "elf",
+        "attributes": {
+          "bonus": 2.2,
+          "wisdom": 1,
+          "accuracy": 1,
+          "ingenuity": 1
+        }
+      },
+      {
+        "title": "cloyd",
+        "attributes": {
+          "bonus": 2.7,
+          "power": 1,
+          "body": 1
+        }
+      },
+      {
+        "title": "dwarf",
+        "attributes": {
+          "bonus": 2.3,
+          "body": 1,
+          "power": 1,
+          "ingenuity": 1
+        }
+      },
+      {
+        "title": "faust",
+        "attributes": {
+          "bonus": 2.1,
+          "occultism": 1,
+          "justice": 1,
+          "absorption": 1
+        }
+      },
+      {
+        "title": "groft",
+        "attributes": {
+          "bonus": 2.4,
+          "trade": 1,
+          "manipulation": 1
+        }
+      },
+      {
+        "title": "trian",
+        "attributes": {
+          "bonus": 1.5,
+          "blessing": 1,
+          "volition": 1,
+          "psyche": 1
+        }
+      },
+      {
+        "title": "selt",
+        "attributes": {
+          "bonus": 2.8,
+          "resources": 1,
+          "amfibicizm": 1,
+          "horse riding": 1
+        }
+      },
+      {
+        "title": "iceworld",
+        "attributes": {
+          "bonus": 1.8,
+          "herbalism": 1,
+          "mastery": 1
+        }
+      },
+      {
+        "title": "kotlit",
+        "attributes": {
+          "bonus": 1.9,
+          "charm": 1,
+          "theft": 1,
+          "secrecy": 1
+        }
+      }
+    ],
+    "class": [
+      {
+        "title": "mage",
+        "attributes": {
+          "bonus": 2.5,
+          "wisdom": 5
+        }
+      },
+      {
+        "title": "warrior",
+        "attributes": {
+          "bonus": 3,
+          "wisdom": 0
+        }
+      },
+      {
+        "title": "nobody",
+        "attributes": {
+          "bonus": 4,
+          "wisdom": 25
+        }
+      },
+      {
+        "title": "shooter",
+        "attributes": {
+          "bonus": 2,
+          "wisdom": 0
+        }
+      }
+    ],
+    "profs": [
+      {
+        "title": "sorcerer",
+        "attributes": {
+          "bonus": 4
+        }
+      },
+      {
+        "title": "priest",
+        "attributes": {
+          "bonus": 5
+        }
+      },
+      {
+        "title": "illusionist",
+        "attributes": {
+          "bonus": 3
+        }
+      },
+      {
+        "title": "paladin",
+        "attributes": {
+          "bonus": 4
+        }
+      },
+      {
+        "title": "barbarian",
+        "attributes": {
+          "bonus": 3
+        }
+      },
+      {
+        "title": "mercenary",
+        "attributes": {
+          "bonus": 4
+        }
+      },
+      {
+        "title": "sniper",
+        "attributes": {
+          "bonus": 2
+        }
+      },
+      {
+        "title": "blacksmith",
+        "attributes": {
+          "bonus": 3
+        }
+      },
+      {
+        "title": "lookfit",
+        "attributes": {
+          "bonus": 1
+        }
+      },
+      {
+        "title": "fallen",
+        "attributes": {
+          "bonus": 5
+        }
+      }
+    ],
+    "specs": [
+      {
+        "title": "vanguard",
+        "attributes": {
+          "bonus": 8
+        }
+      },
+      {
+        "title": "support",
+        "attributes": {
+          "bonus": 4
+        }
+      },
+      {
+        "title": "mixed",
+        "attributes": {
+          "bonus": 6
+        }
+      }
+    ],
+    "religions": [
+      {
+        "title": "sivisritism",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "leucicism",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "marifizm",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "silithium",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "wolfism",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "grottoism",
+        "attributes": {
+          "bonus": 0
+        }
+      }
+    ],
+    "ranks": [
+      {
+        "title": "X",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "E",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "D",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "C",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "B",
+        "attributes": {
+          "bonus": 0
+        }
+      },
+      {
+        "title": "A",
+        "attributes": {
+          "bonus": 0
+        }
+      }
+    ],
+    "skills": [
+      {
+        "title": "theft",
+        "attributes": {
+          "chance": 20,
+          "bonus": 8
+        }
+      },
+      {
+        "title": "hack",
+        "attributes": {
+          "chance": 25,
+          "bonus": 5
+        }
+      },
+      {
+        "title": "deception",
+        "attributes": {
+          "chance": 35,
+          "bonus": 6
+        }
+      },
+      {
+        "title": "intimidation",
+        "attributes": {
+          "chance": 47,
+          "bonus": 4
+        }
+      },
+      {
+        "title": "sociability",
+        "attributes": {
+          "chance": 45,
+          "bonus": 4
+        }
+      },
+      {
+        "title": "mastery",
+        "attributes": {
+          "chance": 0,
+          "bonus": 0
+        }
+      },
+      {
+        "title": "wisdom",
+        "attributes": {
+          "chance": 15,
+          "bonus": 5
+        }
+      },
+      {
+        "title": "body",
+        "attributes": {
+          "chance": 5,
+          "bonus": 8
+        }
+      },
+      {
+        "title": "carefully",
+        "attributes": {
+          "chance": 30,
+          "bonus": 3
+        }
+      },
+      {
+        "title": "ingenuity",
+        "attributes": {
+          "chance": 28,
+          "bonus": 6
+        }
+      },
+      {
+        "title": "power",
+        "attributes": {
+          "chance": 0,
+          "bonus": 0,
+          "weight": 4,
+          "block_chance": 5
+        }
+      },
+      {
+        "title": "dexterity",
+        "attributes": {
+          "chance": 55,
+          "bonus": 5
+        }
+      },
+      {
+        "title": "accuracy",
+        "attributes": {
+          "chance": 65,
+          "bonus": 4
+        }
+      },
+      {
+        "title": "manipulation",
+        "attributes": {
+          "chance": 8,
+          "bonus": 5
+        }
+      },
+      {
+        "title": "volition",
+        "attributes": {
+          "chance": 35,
+          "bonus": 9
+        }
+      },
+      {
+        "title": "secrecy",
+        "attributes": {
+          "chance": 24,
+          "bonus": 6
+        }
+      },
+      {
+        "title": "herbalism",
+        "attributes": {
+          "chance": 20,
+          "bonus": 15
+        }
+      },
+      {
+        "title": "resources",
+        "attributes": {
+          "chance": 55,
+          "bonus": 3
+        }
+      },
+      {
+        "title": "horse riding",
+        "attributes": {
+          "chance": 0,
+          "bonus": 0
+        }
+      },
+      {
+        "title": "scouting",
+        "attributes": {
+          "chance": 28,
+          "bonus": 4
+        }
+      },
+      {
+        "title": "amfibicizm",
+        "attributes": {
+          "chance": 0,
+          "bonus": 0
+        }
+      },
+      {
+        "title": "cat eye",
+        "attributes": {
+          "chance": 30,
+          "bonus": 10
+        }
+      },
+      {
+        "title": "adaptation",
+        "attributes": {
+          "chance": 0,
+          "bonus": 0
+        }
+      },
+      {
+        "title": "psyche",
+        "attributes": {
+          "chance": 23,
+          "bonus": 8
+        }
+      },
+      {
+        "title": "trade",
+        "attributes": {
+          "chance": 50,
+          "bonus": 7,
+          "purchase": 7,
+          "selling": 10
+        }
+      },
+      {
+        "title": "occultism",
+        "attributes": {
+          "chance": 100,
+          "bonus": 0,
+          "damage": 5,
+          "consumption": 1
+        }
+      },
+      {
+        "title": "blessing",
+        "attributes": {
+          "chance": 2,
+          "bonus": 5
+        }
+      },
+      {
+        "title": "justice",
+        "attributes": {
+          "chance": 0,
+          "bonus": 0,
+          "damage": 15,
+          "protect": 8
+        }
+      },
+      {
+        "title": "first aid",
+        "attributes": {
+          "chance": 0,
+          "bonus": 0,
+          "resistance": 12,
+          "heal_chance": 4
+        }
+      },
+      {
+        "title": "charm",
+        "attributes": {
+          "chance": 25,
+          "bonus": 8
+        }
+      },
+      {
+        "title": "strong stomach",
+        "attributes": {
+          "chance": 15,
+          "bonus": 20
+        }
+      },
+      {
+        "title": "absorption",
+        "attributes": {
+          "chance": 0,
+          "bonus": 0.002
+        }
+      }
+    ],
+    "abilities": [
+      {
+        "title": "thunderbolt",
+        "attributes": {
+          "stamina": 40,
+          "damage": 64,
+          "time": 1,
+          "rollback": 8
+        }
+      }
+    ]
+  }
+}

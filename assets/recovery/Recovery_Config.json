@@ -1,0 +1,21 @@
+{
+  "secret_code": "31AC2020",
+  "lang": "Eng",
+  "version": "LSC-Public-Version-3.5.8-Beta",
+  "beta_version": false,
+  "full_control_core": false,
+  "auto_save": true,
+  "utf-8": false,
+  "use_roll": false,
+  "use_sys_class": false,
+  "use_start_witch": true,
+  "use_backup": true,
+  "obj_class": 64,
+  "sys_class": 42,
+  "levels": 10,
+  "inventory_size": 14,
+  "equipment_size": 12,
+  "max_skills": 9,
+  "max_abilities": 12,
+  "max_eqip": 10
+}
