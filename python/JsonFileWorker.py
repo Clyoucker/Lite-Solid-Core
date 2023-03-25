@@ -15,7 +15,7 @@ class JsonFileWorker:
 
         self.__format = ".json"
         self.__base_json_path = "../../assets/jsons/"
-        self.__backup_json_path = "../../assets/backup/"
+        self.__backup_json_path = "..././assets/backup/"
         self.__recovery_json_path = "../../assets/recovery/"
 
         self.__datas = dict()
@@ -310,8 +310,8 @@ class JsonFileWorker:
 
     def change_settings(self,settings_name: str, attribute: str):
         if settings_name in self.__settings:
-            if type(self.__settings[settings_name]) is bool and attribute == "True" or attribute == "False":
-                self.__settings[settings_name] = bool(attribute)
+            if type(self.__settings[settings_name]) is bool and attribute == "true" or attribute == "false":
+                self.__settings[settings_name] = True if attribute == "true" else False
             elif attribute.endswith("%") and settings_name == "factor_level_up_exp":
                 self.__settings[settings_name] = attribute
             elif attribute.isdigit() and attribute != "secret_code" or attribute != "lang" or attribute != "version":
@@ -321,7 +321,6 @@ class JsonFileWorker:
                     self.__settings[settings_name] = attribute
                 else:
                     print(f"You Can't Change This: [{settings_name}]")
-
         else:
             print(f"Fount Error Settings: [{settings_name}]\n")
 

@@ -6,7 +6,7 @@
   "full_control_core": false,
   "auto_save": true,
   "utf-8": false,
-  "use_roll": false,
+  "use_roll": true,
   "use_sys_rpg": false,
   "use_sys_class": false,
   "use_start_witch": true,

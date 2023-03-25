@@ -18,7 +18,7 @@ def write_datas(path: str, datas, message: str = None):
     print(f"Path:[{path}]: {message}")
 
 
-def read_log(path: str = "../log.txt"):
+def read_log(path: str = "../../log.txt"):
     try:
         with open(path, "r") as file:
             return file.read()
@@ -26,7 +26,7 @@ def read_log(path: str = "../log.txt"):
             return []
 
 
-def write_log(logs: list, path: str = "../log.txt"):
+def write_log(logs: list, path: str = "../../log.txt"):
     res = read_log()
     with open(path, "w+") as file:
         if len(res) != 0:

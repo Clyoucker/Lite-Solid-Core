@@ -34,7 +34,7 @@ class App:
         while True:
             req = command(input("request: "))
             match req:
-                case "exit" | "e": break
+                case "back": break
                 case _: requests(search=req)
 
     def create_player(self):
