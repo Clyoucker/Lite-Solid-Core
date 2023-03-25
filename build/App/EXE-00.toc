@@ -42,7 +42,7 @@
  [],
  False,
  False,
- 1679672654,
+ 1679761789,
  [('run.exe',
    'E:\\Different\\Python\\LiteSolidCore\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
    'EXECUTABLE')])

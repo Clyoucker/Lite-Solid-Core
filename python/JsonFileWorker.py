@@ -14,9 +14,9 @@ class JsonFileWorker:
         self.bases_name = "Base"
 
         self.__format = ".json"
-        self.__base_json_path = "../assets/jsons/"
-        self.__backup_json_path = "../assets/backup/"
-        self.__recovery_json_path = "../assets/recovery/"
+        self.__base_json_path = "../../assets/jsons/"
+        self.__backup_json_path = "../../assets/backup/"
+        self.__recovery_json_path = "../../assets/recovery/"
 
         self.__datas = dict()
         self.__settings = dict()

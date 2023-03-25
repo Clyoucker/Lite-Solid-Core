@@ -33,8 +33,9 @@ class App:
         clear()
         while True:
             req = command(input("request: "))
-            if req == "exit" or req == "e": break
-            requests(search=req)
+            match req:
+                case "exit" | "e": break
+                case _: requests(search=req)
 
     def create_player(self):
         clear()
@@ -214,4 +215,5 @@ def main():
 
 
 if __name__ == "__main__":
+    clear()
     main()
