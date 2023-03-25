@@ -5,7 +5,7 @@ import os
 class PickleFileWorker:
     def __init__(self):
         self.__format = ".pickle"
-        self.__path = f"../assets/saves/pickles/"
+        self.__path = f"../../assets/saves/pickles/"
 
     def __check_pickle(self):
         if os.path.exists(self.__path):
