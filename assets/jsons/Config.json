@@ -6,7 +6,7 @@
   "full_control_core": false,
   "auto_save": true,
   "utf-8": false,
-  "use_roll": true,
+  "use_roll": false,
   "use_sys_rpg": false,
   "use_sys_class": false,
   "use_start_witch": true,
@@ -20,6 +20,12 @@
   "max_abilities": 12,
   "max_eqip": 10,
   "level_up_need_xp": 100,
-  "factor_level_up_exp": "50%",
-  "level_up": {"health":12,"stamina":24,"mana":18,"protection":2,"damage":6}
+  "factor_level_up": "50%",
+  "level_up": {
+    "health": 12,
+    "stamina": 24,
+    "mana": 18,
+    "protection": 2,
+    "damage": 6
+  }
 }

@@ -26,7 +26,7 @@ class Player(Storage,Capability):
             char_up = db.get_setting(setting_name="level_up")
             self.level += 1
             self._level_up_exp = 0
-            self._level_up_need_exp += (self._level_up_need_exp / 100) * int(db.get_setting(setting_name="factor_level_up_exp").split("%")[0])
+            self._level_up_need_exp += (self._level_up_need_exp / 100) * int(db.get_setting(setting_name="factor_level_up").split("%")[0])
             self.max_health += char_up["health"]
             self.max_mana += char_up["mana"]
             self.max_stamina += char_up["stamina"]

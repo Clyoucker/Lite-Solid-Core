@@ -14,9 +14,9 @@ class JsonFileWorker:
         self.bases_name = "Base"
 
         self.__format = ".json"
-        self.__base_json_path = "../../assets/jsons/"
-        self.__backup_json_path = "..././assets/backup/"
-        self.__recovery_json_path = "../../assets/recovery/"
+        self.__base_json_path = "../assets/jsons/"
+        self.__backup_json_path = "../assets/backup/"
+        self.__recovery_json_path = "../assets/recovery/"
 
         self.__datas = dict()
         self.__settings = dict()
@@ -341,14 +341,14 @@ class JsonFileWorker:
     # Start
 
     def start(self):
-        bases = load_datas(self._bases_path, "Loading [Base.json] Files...")
-        base_log = "Loading [Base.json] Completed!" if bases else "Loading [Bases.json] Failed!"
+        bases = load_datas(self._bases_path, "Loading Files...Base.json")
+        base_log = "Loading Files [Base.json] Completed!" if bases else "Loading Files [Bases.json] Failed!"
 
-        objects = load_datas(self._objects_path, "Loading [Objects.json] Files...")
-        obj_log = "Loading [Objects.json] Completed!" if objects else "Loading [Objects.json] Failed!"
+        objects = load_datas(self._objects_path, "Loading Files...Objects.json")
+        obj_log = "Loading Files [Objects.json] Completed!" if objects else "Loading Files [Objects.json] Failed!"
 
-        settings = load_datas(self._config_path, "Loading [Config.json] Files...")
-        set_log = "Loading [Config.json] Completed!" if settings else "Loading [Config.json] Failed!"
+        settings = load_datas(self._config_path, "Loading Files...Config.json")
+        set_log = "Loading Files [Config.json] Completed!" if settings else "Loading Files [Config.json] Failed!"
 
         if bases and objects and settings:
             self.__datas = dict(**bases, **objects)
@@ -397,8 +397,8 @@ class JsonFileWorker:
         write_datas(self._backup_config_path, load_datas(self._config_path), "Backup Files...")
 
     def __all_save(self):
-        write_datas(self._bases_path, self.__datas, "Updating [Bases.json] Files...")
-        write_datas(self._objects_path, self.__datas, "Updating [Objects.json] Files...")
+        write_datas(self._bases_path, {"base":self.__datas.__getitem__("base")}, "Updating [Bases.json] Files...")
+        write_datas(self._objects_path, {"objects":self.__datas.__getitem__("objects")}, "Updating [Objects.json] Files...")
         write_datas(self._config_path, self.__settings, "Updating [Config.json] Files...")
 
     def shut_down(self, backup: bool = True):

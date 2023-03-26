@@ -212,8 +212,10 @@ def main():
         except KeyboardInterrupt:
             clear()
             app.save() if db.get_setting("auto_save") else None
+            db.shut_down()
 
 
 if __name__ == "__main__":
     clear()
     main()
+    db.shut_down()

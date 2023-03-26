@@ -1,1 +1,31 @@
-null
+{
+  "secret_code": "31AC2020",
+  "lang": "Eng",
+  "version": "LSC-Public-Version-3.6.0-Beta",
+  "beta_version": false,
+  "full_control_core": false,
+  "auto_save": true,
+  "utf-8": false,
+  "use_roll": false,
+  "use_sys_rpg": false,
+  "use_sys_class": false,
+  "use_start_witch": true,
+  "use_backup": true,
+  "max_obj_class": 64,
+  "max_sys_class": 42,
+  "max_levels": 10,
+  "max_inventory_weight": 36,
+  "max_equipment_weight": 24,
+  "max_skills": 9,
+  "max_abilities": 12,
+  "max_eqip": 10,
+  "level_up_need_xp": 100,
+  "factor_level_up_exp": "50%",
+  "level_up": {
+    "health": 12,
+    "stamina": 24,
+    "mana": 18,
+    "protection": 2,
+    "damage": 6
+  }
+}
