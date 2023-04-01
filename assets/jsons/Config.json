@@ -1,7 +1,7 @@
 {
   "secret_code": "31AC2020",
-  "lang": "Eng",
-  "version": "LSC-Public-Version-3.6.0-Beta",
+  "lang": "Rus",
+  "version": "LSC-Public-Version-3.6.2-Beta",
   "beta_version": false,
   "full_control_core": false,
   "auto_save": true,

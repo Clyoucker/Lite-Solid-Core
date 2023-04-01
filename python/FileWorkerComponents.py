@@ -2,19 +2,19 @@ import os
 import json
 
 
-def load_datas(path: str, message: str = None):
+def load_datas(path: str, utf_support: bool = False, message: str = None):
     print(message) if message else None
     path = path if os.path.exists(path) else None
     if path:
-        with open(path, "r") as file:
+        with open(path, "r", encoding="utf-8" if utf_support else None) as file:
             return json.load(file)
     else:
         return None
 
 
-def write_datas(path: str, datas, message: str = None):
+def write_datas(path: str, datas, utf_support: bool = True, message: str = None):
     with open(path, "w") as file:
-        json.dump(datas, file, indent=2, ensure_ascii=False)
+        json.dump(datas, file, indent=2, ensure_ascii=utf_support)
     print(f"Path:[{path}]: {message}")
 
 

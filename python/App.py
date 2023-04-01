@@ -124,91 +124,206 @@ def main():
         app = App()
         try:
             while True:
-                print("Launched Request: Func processing of basic requests")
-                print("Read Documentation.md for information about app commands")
-                request = (command(input("Request: ")))
-                match request:
-                    case "app.version" | "version":
-                        print(app.version(),"\n")
-                    case "app.redactor" | "redactor":
-                        app.redact()
-                    case "create.player" | "create":
-                        app.create_player()
-                    case "load.player" | "load":
-                        app.load()
-                    case "save.player" | "save":
-                        app.save()
-                    case "player.actions" | "actions":
-                        if "player" in globals() and isinstance(player,Player):
-                            clear()
-                            while True and player.live:
-                                print("Actions Request: Func processing of basic requests")
-                                action = (command(input("Action: ")))
-                                try:
-                                    match action:
-                                        # Action Funcs
-                                        case "attack" | "a": player.attack(monster_type=input("Enemy: "))
-                                        case "block" | "b": player.block_attack(damage=int(input("Enemy Damage: ")),hindrance=int(input("Hindrance [0-100]: ")))
-                                        case "dodge" | "d": player.dodge_attack(hindrance=int(input("Hindrance [0-100]: ")))
-                                        case "craft" | "ct": player.craft_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")),hindrance=int(input("Hindrance [0-100]: ")))
-                                        case "hack" | "h": player.hack_item(hindrance=int(input("Hindrance [0-100]: ")))
-                                        case "steal" | "s": player.steal_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")),hindrance=int(input("Hindrance [0-100]: ")))
-                                        case "check" | "c": player.check(hindrance=int(input("Hindrance [0-100]: ")))
-                                        case "use.potion" | "u": player.use_item(item_name=input("Item Name: "))
-
-                                        # Inventory + Equipments Funcs
-                                        case "add.item" | "add": player.add_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
-                                        case "buy.item" | "buy": player.buy_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
-                                        case "sell.item" | "sell": player.sell_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
-                                        case "decrease.item" | "sub.item": player.decrease_item(item_name=input("Del Item Name: "),item_amount=int(input("Item Amount: ")))
-                                        case "del.item": player.del_item(item_name=input("Del Item Name: "))
-                                        case "reset.inventory": player.reset_inventory()
-                                        case "inventory.status" | "i":player.inventory_status()
-
-                                        case "wear.equip" | "wear": player.wear_equipment(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
-                                        case "take.of.equip" | "take.of": player.take_of_equipment(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
-                                        case "del.equip": player.del_equipments(item_name=input("Del Item: "))
-                                        case "equip.status" | "e": player.equipment_status()
-
-                                        # Skills + Abilities Funcs
-                                        case "skills.status" | "ss": player.skills_status()
-                                        case "learn.abilities" | "la": print("Not Working!\n")
-
-                                        # Different Funcs
-                                        case "rest": player.rest()
-                                        case "player.status" | "p": player.characteristics_status()
-                                        case "use.roll" | "roll":
-                                            clear()
-                                            if db.get_setting(setting_name="use_roll"):
-                                                Formulas.roll(input("Roll: "))
-                                            else:
-                                                print("This feature is disabled in settings.\n")
-                                        case "back": break
-                                except ValueError:
-                                    clear()
-                                    print("Wrong type entered Quantity / Hindrance\n")
-                            if not player.live:
+                if db.get_setting("lang") == "Eng":
+                    print("Launched Request: Func processing of basic requests")
+                    print("Read Documentation.md for information about app commands")
+                    request = (command(input("Request: ")))
+                    match request:
+                        case "app.version" | "version": print(app.version(),"\n")
+                        case "app.redactor" | "redactor": app.redact()
+                        case "create.player" | "create": app.create_player()
+                        case "load.player" | "load": app.load()
+                        case "save.player" | "save": app.save()
+                        case "player.actions" | "actions":
+                            if "player" in globals() and isinstance(player,Player):
                                 clear()
-                                res = input("Resurrect a character? [Y/n]\n")
-                                if res == "Y" or "y":
-                                    player.live = True
-                                    player.health = int((player.max_health / 100) * 50)
-                                    print(f"{player.information['name']} was Resurrect\n")
-                        else:
-                            print("player not found!\nIt may not have been loaded or created.\n")
-                    case "use.roll" | "roll":
-                        clear()
-                        if db.get_setting(setting_name="use_roll"):
-                            Formulas.roll(input("Roll: "))
-                        else:
-                            print("This feature is disabled in settings.\n")
-                    case "exit":
-                        clear()
-                        app.save() if db.get_setting("auto_save") else None
-                        break
-                    case _:
-                        clear()
-                        print(f"Unknown Command: [{request}]\n")
+                                while True and player.live:
+                                    print("Actions Request: Func processing of basic requests")
+                                    action = (command(input("Action: ")))
+                                    try:
+                                        match action:
+                                            # Action Funcs
+                                            case "attack" | "a": player.attack(monster_type=input("Enemy: "))
+                                            case "block" | "b": player.block_attack(damage=int(input("Enemy Damage: ")),hindrance=int(input("Hindrance [0-100]: ")))
+                                            case "dodge" | "d": player.dodge_attack(hindrance=int(input("Hindrance [0-100]: ")))
+                                            case "craft" | "ct": player.craft_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")),hindrance=int(input("Hindrance [0-100]: ")))
+                                            case "hack" | "h": player.hack_item(hindrance=int(input("Hindrance [0-100]: ")))
+                                            case "steal" | "s": player.steal_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")),hindrance=int(input("Hindrance [0-100]: ")))
+                                            case "check" | "c": player.check(hindrance=int(input("Hindrance [0-100]: ")))
+                                            case "use.potion" | "u": player.use_item(item_name=input("Item Name: "))
+
+                                            # Inventory + Equipments Funcs
+                                            case "add.item" | "add": player.add_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
+                                            case "buy.item" | "buy": player.buy_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
+                                            case "sell.item" | "sell": player.sell_item(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
+                                            case "decrease.item" | "sub.item": player.decrease_item(item_name=input("Del Item Name: "),item_amount=int(input("Item Amount: ")))
+                                            case "del.item": player.del_item(item_name=input("Del Item Name: "))
+                                            case "reset.inventory": player.reset_inventory()
+                                            case "inventory.status" | "i":player.inventory_status()
+
+                                            case "wear.equip" | "wear": player.wear_equipment(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
+                                            case "take.of.equip" | "take.of": player.take_of_equipment(item_name=input("Item Name: "),item_amount=int(input("Item Amount: ")))
+                                            case "del.equip": player.del_equipments(item_name=input("Del Item: "))
+                                            case "equip.status" | "e": player.equipment_status()
+
+                                            # Skills + Abilities Funcs
+                                            case "skills.status" | "ss": player.skills_status()
+                                            case "learn.abilities" | "la": print("Not Working!\n")
+
+                                            # Different Funcs
+                                            case "rest": player.rest()
+                                            case "player.status" | "p": player.characteristics_status()
+                                            case "use.roll" | "roll":
+                                                clear()
+                                                if db.get_setting(setting_name="use_roll"):
+                                                    Formulas.roll(input("Roll: "))
+                                                else:
+                                                    print("This feature is disabled in settings.\n")
+                                            case "back": break
+                                    except ValueError:
+                                        clear()
+                                        print("Wrong type entered Quantity / Hindrance\n")
+                                if not player.live:
+                                    clear()
+                                    res = input("Resurrect a character? [Y/n]\n")
+                                    if res == "Y" or "y":
+                                        player.live = True
+                                        player.health = int((player.max_health / 100) * 50)
+                                        print(f"{player.information['name']} was Resurrect\n")
+                            else: print("player not found!\nIt may not have been loaded or created.\n")
+                        case "use.roll" | "roll":
+                            clear()
+                            if db.get_setting(setting_name="use_roll"): Formulas.roll(input("Roll: "))
+                            else: print("This feature is disabled in settings.\n")
+                        case "exit":
+                            clear()
+                            app.save() if db.get_setting("auto_save") else None
+                            break
+                        case _:
+                            clear()
+                            print(f"Unknown Command: [{request}]\n")
+                elif db.get_setting("lang") == "Rus":
+                    print("Запущен процесс базовых запросов")
+                    print("Для подробного ознакомления с командами прочтите Documentation.md")
+                    request = command(input("Запрос: "))
+                    match request:
+                        case "версия": print(app.version(), "\n")
+                        case "редактор": app.redact()
+                        case "создание.игрока": app.create_player()
+                        case "загрузка" | "load": app.load()
+                        case "сохранение": app.save()
+                        case "действия":
+                            if "player" in globals() and isinstance(player, Player):
+                                clear()
+                                while True and player.live:
+                                    print("Запущен процесс действий персонажа")
+                                    print("Для подробного ознакомления с командами прочтите Documentation.md")
+                                    action = (command(input("Действие: ")))
+                                    try:
+                                        match action:
+                                            # Action Funcs
+                                            case "атака":
+                                                player.attack(monster_type=input("Enemy: "))
+                                            case "блок":
+                                                player.block_attack(
+                                                    damage=int(input("Вражеский Урон: ")),
+                                                    hindrance=int(input("Сложность Блокирования [0-100]: "))
+                                                )
+                                            case "уворот":
+                                                player.dodge_attack(hindrance=int(input("Сложность Уворота [0-100]: ")))
+                                            case "крафт":
+                                                player.craft_item(
+                                                    item_name=input("Название создаваемого предмета: "),
+                                                    item_amount=int(input("Кол-во создаваемого предмета: ")),
+                                                    hindrance=int(input("Сложность создания [0-100]: "))
+                                                )
+                                            case "взлом":
+                                                player.hack_item(hindrance=int(input("Сложность взлома [0-100]: ")))
+                                            case "кража":
+                                                player.steal_item(
+                                                    item_name=input("Название предмета: "),
+                                                    item_amount=int(input("Кол-во предмета: ")),
+                                                    hindrance=int(input("Сложность кражи [0-100]: "))
+                                                )
+                                            case "проверка":
+                                                player.check(hindrance=int(input("Сложность проверки [0-100]: ")))
+                                            case "использовать.зелье" | "использовать":
+                                                player.use_item(item_name=input("Название расходника: "))
+
+                                            # Inventory + Equipments Funcs
+                                            case "добавить.предмет" | "добавить":
+                                                player.add_item(
+                                                    item_name=input("Добавит предмета: "),
+                                                    item_amount=int(input("Кол-во предмета: "))
+                                                )
+                                            case "купить.предмет" | "купить":
+                                                player.buy_item(
+                                                    item_name=input("Купить предмета: "),
+                                                    item_amount=int(input("Кол-во предмета: "))
+                                                )
+                                            case "продать.предмет" | "продать":
+                                                player.sell_item(
+                                                    item_name=input("Продать предмета: "),
+                                                    item_amount=int(input("Кол-во предмета: "))
+                                                )
+                                            case "выкинуть.предмет" | "выкинуть":
+                                                player.decrease_item(
+                                                    item_name=input("Выкинуть предмета: "),
+                                                    item_amount=int(input("Кол-во предмета: "))
+                                                )
+                                            case "удалить.предмет":
+                                                player.del_item(item_name=input("Удалить предмета: "))
+                                            case "обнулить.инвентарь": player.reset_inventory()
+                                            case "статус.инвентаря" | "i": player.inventory_status()
+
+                                            case "надеть.снаряжение" | "надеть":
+                                                player.wear_equipment(
+                                                    item_name=input("Надеть снаряжение: "),
+                                                    item_amount=int(input("Кол-во предмета: "))
+                                                )
+                                            case "снять.снаряжение" | "снять":
+                                                player.take_of_equipment(
+                                                    item_name=input("Снять снаряжение: "),
+                                                    item_amount=int(input("Кол-во предмета: "))
+                                                )
+                                            case "удалить.снаряжение": player.del_equipments(item_name=input("Удалить предмет: "))
+                                            case "статус.снаряжения": player.equipment_status()
+
+                                            # Skills + Abilities Funcs
+                                            case "статус.навыков" | "навыки": player.skills_status()
+                                            case "изучить.способность" | "изучить": print("Not Working!\n")
+
+                                            # Different Funcs
+                                            case "отдых": player.rest()
+                                            case "статус.игрока" | "игрок": player.characteristics_status()
+                                            case "кубик":
+                                                clear()
+                                                if db.get_setting(setting_name="use_roll"): Formulas.roll(input("Roll: "))
+                                                else: print("Эту функция отключена в настройках.\n")
+                                            case "back": break
+                                    except ValueError:
+                                        clear()
+                                        print("Введён неправильный тип Количество / Усложнения\n")
+                                if not player.live:
+                                    clear()
+                                    res = input("Resurrect a character? [Y/n]\n")
+                                    if res == "Y" or "y":
+                                        player.live = True
+                                        player.health = int((player.max_health / 100) * 50)
+                                        print(f"{player.information['name']} был воскрешён\n")
+                            else: print("Игрок не найден!\nВозможно он не загружен или не создан.\n")
+                        case "кубик":
+                            clear()
+                            if db.get_setting(setting_name="use_roll"): Formulas.roll(input("Roll: "))
+                            else: print("Эту функция отключена в настройках!.\n")
+                        case "exit":
+                            clear()
+                            app.save() if db.get_setting("auto_save") else None
+                            break
+                        case _:
+                            clear()
+                            print(f"Неизвестная команда: [{request}]\n")
+                else: print("Wrong Lang!")
         except KeyboardInterrupt:
             clear()
             app.save() if db.get_setting("auto_save") else None

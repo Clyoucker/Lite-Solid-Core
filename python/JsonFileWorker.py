@@ -14,9 +14,9 @@ class JsonFileWorker:
         self.bases_name = "Base"
 
         self.__format = ".json"
-        self.__base_json_path = "../assets/jsons/"
-        self.__backup_json_path = "../assets/backup/"
-        self.__recovery_json_path = "../assets/recovery/"
+        self.__base_json_path = "../../assets/jsons/"
+        self.__backup_json_path = "../../assets/backup/"
+        self.__recovery_json_path = "../../assets/recovery/"
 
         self.__datas = dict()
         self.__settings = dict()
@@ -46,7 +46,7 @@ class JsonFileWorker:
 
     # Objects Methods
 
-    def __get_item_index(self, obj_name, category, types):
+    def __get_item_index(self, obj_name: str, category: str, types: str):
         index = 0
         for item in self.__datas[category][types]:
             if item["title"] == obj_name:
@@ -341,14 +341,14 @@ class JsonFileWorker:
     # Start
 
     def start(self):
-        bases = load_datas(self._bases_path, "Loading Files...Base.json")
+        settings = load_datas(path=self._config_path, message="Loading Files...Config.json")
+        set_log = "Loading Files [Config.json] Completed!" if settings else "Loading Files [Config.json] Failed!"
+
+        bases = load_datas(path=self._bases_path, utf_support=settings["utf-8"] if settings else False, message="Loading Files...Base.json")
         base_log = "Loading Files [Base.json] Completed!" if bases else "Loading Files [Bases.json] Failed!"
 
-        objects = load_datas(self._objects_path, "Loading Files...Objects.json")
+        objects = load_datas(path=self._objects_path, utf_support=settings["utf-8"] if settings else False, message="Loading Files...Objects.json")
         obj_log = "Loading Files [Objects.json] Completed!" if objects else "Loading Files [Objects.json] Failed!"
-
-        settings = load_datas(self._config_path, "Loading Files...Config.json")
-        set_log = "Loading Files [Config.json] Completed!" if settings else "Loading Files [Config.json] Failed!"
 
         if bases and objects and settings:
             self.__datas = dict(**bases, **objects)
@@ -374,13 +374,13 @@ class JsonFileWorker:
         objects = settings = bases = None
         base_log = obj_log = set_log = ""
         if os.path.exists(self._bases_path) is False:
-            bases = load_datas(self._recovery_bases_path, "Recovery [Base.json] Files...")
+            bases = load_datas(path=self._recovery_bases_path, message="Recovery [Base.json] Files...")
             base_log = "Recovery Bases Completed!" if bases else "Recovery Bases Failed!"
         if os.path.exists(self._objects_path) is False:
-            objects = load_datas(self._recovery_objects_path, "Recovery [Objects.json] Files...")
+            objects = load_datas(path=self._recovery_objects_path, message="Recovery [Objects.json] Files...")
             obj_log = "Recovery Objects Completed!" if objects else "Recovery Objects Failed!"
         if os.path.exists(self._config_path) is False:
-            settings = load_datas(self._recovery_config_path, "Recovery [Config.json] Files...")
+            settings = load_datas(path=self._recovery_config_path, message="Recovery [Config.json] Files...")
             set_log = "Recovery Config Completed!" if settings else "Recovery Config Failed!"
         write_log(logs=[base_log, obj_log, set_log, str(datetime.datetime.now())])
         match bases, objects, settings:
@@ -392,14 +392,14 @@ class JsonFileWorker:
                 self.datas_status = True
 
     def __backup(self):
-        write_datas(self._backup_bases_path, load_datas(self._bases_path), "Backup Files...")
-        write_datas(self._backup_objects_path, load_datas(self._objects_path), "Backup Files...")
-        write_datas(self._backup_config_path, load_datas(self._config_path), "Backup Files...")
+        write_datas(path=self._backup_bases_path, datas=load_datas(self._bases_path), message="Backup Files...")
+        write_datas(path=self._backup_objects_path, datas=load_datas(self._objects_path), message="Backup Files...")
+        write_datas(path=self._backup_config_path, datas=load_datas(self._config_path), message="Backup Files...")
 
     def __all_save(self):
-        write_datas(self._bases_path, {"base":self.__datas.__getitem__("base")}, "Updating [Bases.json] Files...")
-        write_datas(self._objects_path, {"objects":self.__datas.__getitem__("objects")}, "Updating [Objects.json] Files...")
-        write_datas(self._config_path, self.__settings, "Updating [Config.json] Files...")
+        write_datas(path=self._bases_path, datas={"base":self.__datas.__getitem__("base")}, utf_support=False if self.get_setting("utf-8") else True, message="Updating [Bases.json] Files...")
+        write_datas(path=self._objects_path, datas={"objects":self.__datas.__getitem__("objects")}, utf_support=False if self.get_setting("utf-8") else True, message="Updating [Objects.json] Files...")
+        write_datas(path=self._config_path, datas=self.__settings, message="Updating [Config.json] Files...")
 
     def shut_down(self, backup: bool = True):
         if self.__settings["use_backup"] or backup:
@@ -415,14 +415,13 @@ class JsonFileWorker:
         print("All Files Was Updated Completed!")
 
     def load_backup(self):
-        bases = load_datas(self._backup_bases_path, "Loading Backup Files...") if os.path.exists(self._backup_bases_path) else None
-        objects = load_datas(self._backup_objects_path) if os.path.exists(self._backup_objects_path) else None
-        settings = load_datas(self._backup_config_path) if os.path.exists(self._backup_config_path) else None
+        print("Loading Backup Files...")
+        bases = load_datas(path=self._backup_bases_path) if os.path.exists(self._backup_bases_path) else None
+        objects = load_datas(path=self._backup_objects_path) if os.path.exists(self._backup_objects_path) else None
+        settings = load_datas(path=self._backup_config_path) if os.path.exists(self._backup_config_path) else None
         match bases, objects, settings:
             case None: raise "Error!"
             case _:
                 self.__datas = dict(**bases, **objects)
                 self.__settings = settings
                 print("Loading Backup Completed!")
-
-# db = JsonFileWorker()
